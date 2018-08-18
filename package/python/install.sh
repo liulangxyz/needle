@@ -1,3 +1,5 @@
+#!/bin/bash
+
 source $INSTALL_HOME/func.sh
 
 brewinstall python3
