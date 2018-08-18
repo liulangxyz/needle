@@ -1,0 +1,7 @@
+.DS_Store
+Desktop.ini
+.Trashes
+.project
+.git
+node_modules
+*.pyc

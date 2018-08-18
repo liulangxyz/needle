@@ -1,0 +1,81 @@
+# basic
+# =============================================================================
+# set env searching path
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+# dotfile directory
+DOT_HOME=$(readlink ~/.zshrc)
+export DOT_HOME=${DOT_HOME%/zsh/*}
+
+
+# oh-my-zsh
+# =============================================================================
+# path to oh-my-zsh installation.
+export ZSH=~/.oh-my-zsh
+
+# zsh theme
+ZSH_THEME="simple"
+
+# disable auto-setting terminal title
+DISABLE_AUTO_TITLE="true"
+
+# plugins
+plugins=(
+  git
+  tmux
+  pip
+  docker
+  npm
+)
+
+# init oh-my-zsh
+source $ZSH/oh-my-zsh.sh
+
+
+# others
+# =============================================================================
+# load custom configs
+if [ -e "$DOT_HOME/custom/config.sh" ]; then
+  source "$DOT_HOME/custom/config.sh"
+fi
+
+# local language settings
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+# pyenv and pyenv-virtualenv
+if command -v pyenv 1>/dev/null 2>&1 ; then
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+fi
+
+# virtualenvwrapper
+if command -v lsvirtualenv 1>/dev/null 2>&1 ; then
+  if command -v python3 1>/dev/null 2>&1 ; then
+    export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+  fi
+  export PIP_REQUIRE_VIRTUALENV=false
+  export WORKON_HOME=$HOME/.python-env
+  source /usr/local/bin/virtualenvwrapper.sh
+fi
+
+# java
+export JAVA_HOME=$(/usr/libexec/java_home)
+
+
+# alias
+# =============================================================================
+alias vi="vim"
+alias vizshrc="vi ~/.zshrc && . ~/.zshrc"
+alias vimonkey="vi ~/Documents/monkey.md"
+alias vitodo="vi ~/Documents/todo.md"
+
+# directory
+alias mk="cd ~/Documents"
+
+# macos
+alias showfiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
+alias hidefiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+
+# utilities
+alias git-push-force="sh $DOT_HOME/script/git-push-force.sh"

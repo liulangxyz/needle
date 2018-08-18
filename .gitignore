@@ -1,0 +1,3 @@
+package/custom/*
+!package/custom/README.md
+.DS_Store

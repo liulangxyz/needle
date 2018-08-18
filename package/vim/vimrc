@@ -1,0 +1,269 @@
+" ==========
+" Basic
+" ==========
+" be iMproved
+set nocompatible
+
+" leading key
+let mapleader=','
+
+" ignore deprecated error of importing imp
+if has('python3')
+  silent! python3 1
+endif
+
+" ==========
+" Plugins
+" ==========
+call plug#begin('~/.vim/plug')
+
+" theme
+Plug 'kristijanhusak/vim-hybrid-material'
+Plug 'altercation/vim-colors-solarized'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" editor
+Plug 'scrooloose/nerdtree'
+Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'godlygeek/tabular'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+
+" code
+Plug 'Valloric/YouCompleteMe'
+Plug 'tomtom/tcomment_vim'
+Plug 'vim-syntastic/syntastic'
+Plug 'Chiel92/vim-autoformat'
+Plug 'plasticboy/vim-markdown'
+Plug 'gregsexton/MatchTag'
+Plug 'mattn/emmet-vim'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+
+call plug#end()
+
+
+" theme
+set background=dark
+if has('gui_running')
+    colorscheme hybrid_material
+else
+    colorscheme hybrid_reverse
+endif
+
+" status line
+set laststatus=2
+let g:airline_theme='tomorrow'
+
+" nerdtree
+nnoremap <leader>a :NERDTreeToggle<CR>
+nnoremap <leader>r :NERDTreeFind<CR>
+
+" easy motion
+let g:EasyMotion_do_mapping = 0
+nmap <leader>w <Plug>(easymotion-overwin-f)
+
+" tabular
+vnoremap <leader>t :Tabularize /
+
+" you complete me
+let g:ycm_filetype_blacklist = {}
+let g:ycm_autoclose_preview_window_after_completion = 1
+
+" t_comment
+noremap <leader>c :TComment<CR>
+noremap <leader>b :TCommentBlock<CR>
+
+" syntastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_mode_map = {"mode": "passive"}
+" let g:syntastic_python_checkers = ['flake8']
+" let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_json_checkers = ['jsonlint']
+
+" markdown
+let g:vim_markdown_folding_disabled=1
+
+" emmet
+let g:user_emmet_leader_key = '<leader>m'
+
+
+" ==========
+" Features
+" ==========
+" turn on filetype detect
+filetype plugin indent on
+
+" turn off backup and swap files
+set nobackup
+set noswapfile
+
+" encoding
+set encoding=utf-8
+set fileencodings=utf-8,euc-jp
+
+" file format
+set fileformats=unix,mac,dos
+
+" new split position
+set splitbelow
+set splitright
+
+" fold method
+set foldenable
+set foldmethod=manual
+
+" show command and ruler
+set showcmd
+set ruler
+
+" tab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
+set smarttab
+
+" line setting
+set number
+set cursorline
+set colorcolumn=79
+
+" indent
+set autoindent
+set smartindent
+
+" search
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+" show matching brackets
+set showmatch
+
+" access system clipboard
+set clipboard=unnamed
+
+" enable mouse in xterm
+if !has('gui_running')
+    set mouse=a
+endif
+
+" enable backspace
+set backspace=indent,eol,start
+
+" syntax highlight
+syntax enable
+
+" automatically load changed file
+set autoread
+
+" enable spell checking
+set spelllang=en_us
+
+" set unprintable characters and turn it on
+set listchars=tab:▸\ ,eol:¬,trail:·,extends:»,precedes:«
+set list
+
+
+" ==========
+" Auto command
+" ==========
+" source vimrc
+augroup autoReload
+    autocmd!
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END
+
+" force filetype
+augroup forceFiletype
+    autocmd!
+    autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+    autocmd BufNewFile,BufReadPost *.tex set filetype=plaintex
+augroup END
+
+" adjust indention
+augroup adjustIndention
+    autocmd!
+    autocmd FileType markdown setlocal tabstop=4 softtabstop=4 shiftwidth=4
+    autocmd FileType python setlocal tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
+
+
+" ==========
+" Key mapping
+" ==========
+" shortcut for editing $MYVIMRC
+nnoremap <leader>ev :vs $MYVIMRC<CR>
+
+" set working directory
+nnoremap <leader>. :lcd %:p:h<CR>:pwd<CR>
+
+" navigate among windows
+nnoremap ] <C-w>
+nnoremap ]h <C-w>h
+nnoremap ]j <C-w>j
+nnoremap ]k <C-w>k
+nnoremap ]l <C-w>l
+
+" move current window to particular direction
+nnoremap [h <C-w>H
+nnoremap [j <C-w>J
+nnoremap [k <C-w>K
+nnoremap [l <C-w>L
+
+" continuous indentation for long line
+vnoremap < <gv
+vnoremap > >gv
+
+" treat long lines as break lines
+nnoremap j gj
+vnoremap j gj
+nnoremap k gk
+vnoremap k gk
+nnoremap ^ g^
+vnoremap ^ g^
+
+" unify split command
+cnoremap hs split
+cnoremap vs vsplit
+cnoremap hb sbuffer
+cnoremap vb vertical sbuffer
+
+
+" ==========
+" Specific
+" ==========
+" MacVim
+if has('gui_running')
+    " set font and size for GUI
+    set guifont=Monaco:h11
+
+    " remove right and left scroll bar
+    set guioptions-=rL
+
+    " show tab bar only when there are more than one tab
+    set showtabline=1
+
+    " shortcuts for navigating tabs
+    map <D-w> :tabclose<CR>
+    map <D-t> :tabnew<CR>
+    " map <A-D-LEFT> :tabprevious<CR>
+    " map <A-D-RIGHT> :tabNext<CR>
+    map <D-1> 1gt
+    map <D-2> 2gt
+    map <D-3> 3gt
+    map <D-4> 4gt
+    map <D-5> 5gt
+    map <D-6> 6gt
+    map <D-7> 7gt
+    map <D-8> 8gt
+    map <D-9> 9gt
+endif
