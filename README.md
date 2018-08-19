@@ -1,9 +1,11 @@
 # dotfile
 
-Utility to setup Mac OS development environment.
+My setup of Mac OS development environment.
 
 
 ## How-to
+
+Install
 
 ```sh
 $ sh INSTALL.sh
