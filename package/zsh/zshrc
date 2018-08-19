@@ -67,8 +67,6 @@ export JAVA_HOME=$(/usr/libexec/java_home)
 # =============================================================================
 alias vi="vim"
 alias vizshrc="vi ~/.zshrc && . ~/.zshrc"
-alias vimonkey="vi ~/Documents/monkey.md"
-alias vitodo="vi ~/Documents/todo.md"
 
 # directory
 alias mk="cd ~/Documents"

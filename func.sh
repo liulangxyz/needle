@@ -25,11 +25,13 @@ brewinstall() {
 
 # backup old non-symbolic file
 backup() {
-  if [ -f "$1" -a ! -h "$1" ]; then
-    echo "==> backup $1"
-    cp -vp "$1" "$1-$TIMESTAMP.org"
-    # record the backup logs
-    echo "$1-$TIMESTAMP.org" >> $INSTALL_HOME/package/custom/backup.log
+  FILE=$1
+  BACKUP_FILE="$1-$TIMESTAMP.org"
+  if [ -f "$FILE" -a ! -h "$FILE" ]; then
+    echo "==> backup $FILE"
+    cp -vp "$FILE" "$BACKUP_FILE"
+    # log the backup
+    echo "$BACKUP_FILE" >> $INSTALL_HOME/package/custom/backup.log
   fi
 }
 

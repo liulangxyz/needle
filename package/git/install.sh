@@ -4,12 +4,10 @@ source $INSTALL_HOME/func.sh
 
 brewinstall git
 
+# config gitconfig
 GIT_CONFIG=~/.gitconfig
 TEMPLATE_GIT_CONFIG=$INSTALL_HOME/package/git/gitconfig.template
 TARGET_GIT_CONFIG=$INSTALL_HOME/package/custom/gitconfig
-GIT_IGNORE=~/.gitignore
-TEMPLATE_GIT_IGNORE=$INSTALL_HOME/package/git/gitignore.template
-TARGET_GIT_IGNORE=$INSTALL_HOME/package/custom/gitignore
 
 if [ -f $GIT_CONFIG ]; then
   MSG="(You already have one ~/.gitginore)"
@@ -33,6 +31,11 @@ if [ $ans = 'y' ]; then
   git config --global user.email "$email"
 fi
 
+
+# config gitignore
+GIT_IGNORE=~/.gitignore
+TEMPLATE_GIT_IGNORE=$INSTALL_HOME/package/git/gitignore.template
+TARGET_GIT_IGNORE=$INSTALL_HOME/package/custom/gitignore
 
 info "config gitignore"
 backup $GIT_IGNORE
