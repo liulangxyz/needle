@@ -10,8 +10,3 @@ Install
 ```sh
 $ sh INSTALL.sh
 ```
-
-
-*Note*
-
-*   Any `install.sh` in package directory could be executed independently
