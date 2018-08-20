@@ -44,6 +44,7 @@ brewinstall ag
 brewinstall pt
 brewinstall youtube-dl
 brewinstall httpie
+brewinstall node
 
 # others
 for install_script in $INSTALL_HOME/package/*/install.sh; do
