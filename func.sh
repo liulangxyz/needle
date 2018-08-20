@@ -16,7 +16,7 @@ error() {
 # install the brew if not installed yet
 brewinstall() {
   echo "==> install $1"
-  if ! brew info "$1" 1>/dev/null 2>&1; then
+  if ! brew list "$1" 1>/dev/null 2>&1; then
     brew install "$1"
   else
     warn "already installed"
