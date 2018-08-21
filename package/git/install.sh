@@ -10,11 +10,11 @@ TEMPLATE_GIT_CONFIG=$INSTALL_HOME/package/git/gitconfig.template
 TARGET_GIT_CONFIG=$INSTALL_HOME/package/custom/gitconfig
 
 if [ -f $GIT_CONFIG ]; then
-  MSG="(You already have one ~/.gitginore)"
+  info "$GIT_CONFIG already exists"
+  info "do you want to re-set (y/n):"
 else
-  MSG=""
+  info "do you want to set gitconfig (y/n):"
 fi
-info "do you want to re-setup gitconfig $MSG (y/n):"
 read ans
 if [ $ans = 'y' ]; then
   backup $GIT_CONFIG
@@ -37,8 +37,16 @@ GIT_IGNORE=~/.gitignore
 TEMPLATE_GIT_IGNORE=$INSTALL_HOME/package/git/gitignore.template
 TARGET_GIT_IGNORE=$INSTALL_HOME/package/custom/gitignore
 
-info "config gitignore"
-backup $GIT_IGNORE
-backup $TARGET_GIT_IGNORE
-cp -p $TEMPLATE_GIT_IGNORE $TARGET_GIT_IGNORE
-linkconf $TARGET_GIT_IGNORE $GIT_IGNORE
+if [ -f $GIT_IGNORE ]; then
+  info "$GIT_IGNORE already exists"
+  info "do you want to re-set (y/n):"
+else
+  info "do you want to set gitignore (y/n):"
+fi
+read ans
+if [ $ans = 'y' ]; then
+  backup $GIT_IGNORE
+  backup $TARGET_GIT_IGNORE
+  cp -p $TEMPLATE_GIT_IGNORE $TARGET_GIT_IGNORE
+  linkconf $TARGET_GIT_IGNORE $GIT_IGNORE
+fi
