@@ -10,7 +10,8 @@ if [ ! -f "$INSTALL_HOME/INSTALL.sh" ]; then
 fi
 
 export TIMESTAMP=$(date '+%Y%m%d%H%M%S')
-source $INSTALL_HOME/func.sh
+export LIB=$INSTALL_HOME/func.sh
+source $LIB
 
 
 # =============================================================================
@@ -46,7 +47,7 @@ brewinstall youtube-dl
 brewinstall httpie
 brewinstall node
 
-# others
+# customized
 for install_script in $INSTALL_HOME/package/*/install.sh; do
   /bin/sh $install_script
 done

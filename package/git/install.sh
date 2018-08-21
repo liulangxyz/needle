@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $INSTALL_HOME/func.sh
+source $LIB
 
 brewinstall git
 
@@ -9,6 +9,7 @@ GIT_CONFIG=~/.gitconfig
 TEMPLATE_GIT_CONFIG=$INSTALL_HOME/package/git/gitconfig.template
 TARGET_GIT_CONFIG=$INSTALL_HOME/package/custom/gitconfig
 
+echo "==> config gitconfig"
 if [ -f $GIT_CONFIG ]; then
   info "$GIT_CONFIG already exists"
   info "do you want to re-set (y/n):"
@@ -19,7 +20,7 @@ read ans
 if [ $ans = 'y' ]; then
   backup $GIT_CONFIG
   backup $TARGET_GIT_CONFIG
-  cp -p $TEMPLATE_GIT_CONFIG $TARGET_GIT_CONFIG
+  cp $TEMPLATE_GIT_CONFIG $TARGET_GIT_CONFIG
   linkconf $TARGET_GIT_CONFIG $GIT_CONFIG
 
   # setup user name and email
@@ -37,6 +38,7 @@ GIT_IGNORE=~/.gitignore
 TEMPLATE_GIT_IGNORE=$INSTALL_HOME/package/git/gitignore.template
 TARGET_GIT_IGNORE=$INSTALL_HOME/package/custom/gitignore
 
+echo "==> config gitignore"
 if [ -f $GIT_IGNORE ]; then
   info "$GIT_IGNORE already exists"
   info "do you want to re-set (y/n):"
@@ -47,6 +49,6 @@ read ans
 if [ $ans = 'y' ]; then
   backup $GIT_IGNORE
   backup $TARGET_GIT_IGNORE
-  cp -p $TEMPLATE_GIT_IGNORE $TARGET_GIT_IGNORE
+  cp $TEMPLATE_GIT_IGNORE $TARGET_GIT_IGNORE
   linkconf $TARGET_GIT_IGNORE $GIT_IGNORE
 fi

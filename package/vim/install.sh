@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $INSTALL_HOME/func.sh
+source $LIB
 
 brewinstall vim
 brewinstall macvim

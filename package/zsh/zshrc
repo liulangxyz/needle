@@ -67,6 +67,7 @@ export JAVA_HOME=$(/usr/libexec/java_home)
 # =============================================================================
 alias vi="vim"
 alias vizshrc="vi ~/.zshrc && . ~/.zshrc"
+alias vigitignore="vi ~/.gitignore"
 
 # directory
 alias mk="cd ~/Documents"
@@ -77,3 +78,4 @@ alias hidefiles='defaults write com.apple.finder AppleShowAllFiles NO; killall F
 
 # utilities
 alias git-push-force="sh $DOT_HOME/script/git-push-force.sh"
+alias git-pulls="sh $DOT_HOME/script/git-pulls.sh"

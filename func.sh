@@ -37,11 +37,13 @@ backup() {
 
 # symlink conf file
 linkconf() {
-  backup "$2"
-  if [ -f "$1" ]; then
-    echo "==> link $1"
-    ln -Fsv "$1" "$2"
+  SOURCE="$1"
+  TARGET="$2"
+  backup "$TARGET"
+  if [ -f "$SOURCE" ]; then
+    echo "==> link ${SOURCE/*\/}"
+    ln -Fsv "$SOURCE" "$TARGET"
   else
-    error "$1 does not exists"
+    error "$SOURCE does not exists"
   fi
 }
