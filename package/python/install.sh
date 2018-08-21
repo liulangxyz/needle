@@ -11,3 +11,5 @@ linkconf $INSTALL_HOME/package/python/pip.conf $PIP_CONF
 
 # libs
 brewinstall pyenv
+brewinstall pyenv-virtualenv
+brewinstall pyenv-virtualenvwrapper
