@@ -7,7 +7,6 @@ brewinstall git
 # config gitconfig
 GIT_CONFIG=~/.gitconfig
 TEMPLATE_GIT_CONFIG=$INSTALL_HOME/package/git/gitconfig.template
-TARGET_GIT_CONFIG=$INSTALL_HOME/package/custom/gitconfig
 
 echo "==> config gitconfig"
 if [ -f $GIT_CONFIG ]; then
@@ -19,9 +18,7 @@ fi
 read ans
 if [ $ans = 'y' ]; then
   backup $GIT_CONFIG
-  backup $TARGET_GIT_CONFIG
-  cp $TEMPLATE_GIT_CONFIG $TARGET_GIT_CONFIG
-  linkconf $TARGET_GIT_CONFIG $GIT_CONFIG
+  cp -f $TEMPLATE_GIT_CONFIG $GIT_CONFIG
 
   # setup user name and email
   info "Name: "
@@ -36,7 +33,6 @@ fi
 # config gitignore
 GIT_IGNORE=~/.gitignore
 TEMPLATE_GIT_IGNORE=$INSTALL_HOME/package/git/gitignore.template
-TARGET_GIT_IGNORE=$INSTALL_HOME/package/custom/gitignore
 
 echo "==> config gitignore"
 if [ -f $GIT_IGNORE ]; then
@@ -48,7 +44,5 @@ fi
 read ans
 if [ $ans = 'y' ]; then
   backup $GIT_IGNORE
-  backup $TARGET_GIT_IGNORE
-  cp $TEMPLATE_GIT_IGNORE $TARGET_GIT_IGNORE
-  linkconf $TARGET_GIT_IGNORE $GIT_IGNORE
+  cp -f $TEMPLATE_GIT_IGNORE $GIT_IGNORE
 fi
