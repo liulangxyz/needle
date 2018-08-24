@@ -10,7 +10,7 @@ if [ ! -f "$INSTALL_HOME/INSTALL.sh" ]; then
 fi
 
 export TIMESTAMP=$(date '+%Y%m%d%H%M%S')
-export LIB=$INSTALL_HOME/func.sh
+export LIB=$INSTALL_HOME/lib/import.sh
 source $LIB
 
 

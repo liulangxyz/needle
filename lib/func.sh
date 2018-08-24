@@ -1,17 +1,4 @@
-# print green output
-info() {
-  echo $'\e[1;32m'"$@"$'\e[0m'
-}
-
-# print yellow output
-warn() {
-  echo $'\e[1;33m'"$@"$'\e[0m'
-}
-
-# print red output
-error() {
-  echo $'\e[1;31m'"$@"$'\e[0m'
-}
+#!/bin/bash
 
 # install the brew if not installed yet
 brewinstall() {
@@ -31,7 +18,7 @@ backup() {
     echo "==> backup $FILE"
     cp -vp "$FILE" "$BACKUP_FILE"
     # log the backup
-    echo "$BACKUP_FILE" >> $INSTALL_HOME/package/custom/backup.log
+    echo "$BACKUP_FILE" >> "$INSTALL_HOME/log/backup-$TIMESTAMP.log"
   fi
 }
 

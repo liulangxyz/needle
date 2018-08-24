@@ -4,6 +4,7 @@ source $LIB
 
 brewinstall python3
 
+info "==>" "config pip.conf"
 PIP_CONF=~/.pip/pip.conf
 mkdir -p ~/.pip
 backup $PIP_CONF
