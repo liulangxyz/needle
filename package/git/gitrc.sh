@@ -28,3 +28,5 @@ git_push_force() {
 # alias
 alias vigitignore="vi ~/.gitignore"
 alias vigitrc="vi $DOT_HOME/package/git/gitrc.sh && source $SHELL_RC"
+alias git-pulls="git_pulls"
+alias git-push-force="git_push_force"

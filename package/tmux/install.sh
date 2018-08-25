@@ -2,11 +2,9 @@
 
 source $LIB
 
-echo
-info "==>" "config tmux"
-
+brewinstall tmux
 brewinstall reattach-to-user-namespace
 
-echo "==>" "config tmux.conf"
+info "==>" "config tmux.conf"
 backup ~/.tmux.conf
 linkconf $INSTALL_HOME/package/tmux/tmux.conf ~/.tmux.conf

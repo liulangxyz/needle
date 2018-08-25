@@ -15,7 +15,7 @@ source $LIB
 
 
 # install developer command line tools
-echo "==> install xcode command line tools"
+info "==>" "install xcode command line tools"
 if [ -z $(xcode-select -p) ]; then
   xcode-select --install
 else
@@ -23,7 +23,7 @@ else
 fi
 
 # install homebrew
-echo "==> install homebrew"
+info "==>" "install homebrew"
 if ! command -v brew 1>/dev/null 2>&1; then
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 else
@@ -40,12 +40,6 @@ brewinstall pt
 brewinstall youtube-dl
 brewinstall httpie
 brewinstall node
-brewinstall git
-brewinstall python3
-brewinstall tmux
-brewinstall vim
-brewinstall macvim
-brewinstall zsh
 
 # customized
 for install_script in $INSTALL_HOME/package/*/install.sh; do

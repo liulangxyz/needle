@@ -2,9 +2,6 @@
 
 source $LIB
 
-echo
-info "==>" "config shell"
-
 # create working files
 files=(
   "monkey.md"
@@ -14,7 +11,7 @@ files=(
 for file in ${files[@]}; do
   target_file="$INSTALL_HOME/custom/$file"
   if [ ! -f "$target_file" ]; then
-    echo "==>" "create $file"
+    info "==>" "create $file"
     touch "$target_file"
   fi
 done

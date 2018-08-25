@@ -2,17 +2,16 @@
 
 source $LIB
 
-echo
-info "==>" "config python"
+brewinstall python3
 
-echo "==>" "config pip.conf"
+info "==>" "config pip.conf"
 PIP_CONF=~/.pip/pip.conf
 mkdir -p ~/.pip
 backup $PIP_CONF
 linkconf $INSTALL_HOME/package/python/pip.conf $PIP_CONF
 
 pipinstall() {
-  echo "==>" "install $1"
+  info "==>" "pip3 install $1"
   if ! pip3 show "$1" >/dev/null 2>&1; then
     pip3 install "$1"
     log "pip3 install: $1"

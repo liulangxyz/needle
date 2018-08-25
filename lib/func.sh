@@ -2,13 +2,13 @@
 
 # log
 log() {
-  LOG="$INSTALL_HOME/log/install-$TIMESTAMP.log"
+  LOG="$INSTALL_HOME/log/install.log"
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" >> $LOG
 }
 
 # install the brew if not installed yet
 brewinstall() {
-  echo "==> install $1"
+  info "==>" "install $1"
   if ! brew list "$1" 1>/dev/null 2>&1; then
     brew install "$1"
     log "brew install: $1"
@@ -28,7 +28,7 @@ backup() {
   fi
 
   if [ -f "$FILE" ]; then
-    echo "==> backup $FILE"
+    info "==>" "backup $FILE"
     cp -p "$FILE" "$BACKUP_FILE"
     log "backup: $FILE -> $BACKUP_FILE"
     rm -rf "$FILE"
@@ -41,7 +41,7 @@ linkconf() {
   TARGET="$2"
   backup "$TARGET"
   if [ -f "$SOURCE" ]; then
-    echo "==> link ${SOURCE/*\/}"
+    info "==>" "symlink ${SOURCE/*\/}"
     ln -Fs "$SOURCE" "$TARGET"
     log "symlink: $SOURCE -> $TARGET"
   else

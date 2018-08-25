@@ -5,3 +5,4 @@ Desktop.ini
 .git
 node_modules
 *.pyc
+.python-version
