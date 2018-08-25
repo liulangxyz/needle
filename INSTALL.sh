@@ -14,12 +14,9 @@ export LIB=$INSTALL_HOME/lib/import.sh
 source $LIB
 
 
-# =============================================================================
-# Basic
-# =============================================================================
 # install developer command line tools
 echo "==> install xcode command line tools"
-if [[ -z $(xcode-select -p) ]]; then
+if [ -z $(xcode-select -p) ]; then
   xcode-select --install
 else
   warn "already installed"
@@ -34,9 +31,6 @@ else
 fi
 
 
-# =============================================================================
-# Install binaries
-# =============================================================================
 # essentials
 brewinstall cmake
 brewinstall fzf
@@ -46,6 +40,12 @@ brewinstall pt
 brewinstall youtube-dl
 brewinstall httpie
 brewinstall node
+brewinstall git
+brewinstall python3
+brewinstall tmux
+brewinstall vim
+brewinstall macvim
+brewinstall zsh
 
 # customized
 for install_script in $INSTALL_HOME/package/*/install.sh; do

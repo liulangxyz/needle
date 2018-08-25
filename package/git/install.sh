@@ -2,37 +2,33 @@
 
 source $LIB
 
-brewinstall git
+echo
+info "==>" "config git"
 
 # config gitconfig
-info "==>" "config gitconfig"
+echo "==>" "config gitconfig"
 GIT_CONFIG=~/.gitconfig
 TEMPLATE_GIT_CONFIG=$INSTALL_HOME/package/git/gitconfig.template
 if [ -f $GIT_CONFIG ]; then
   warn "$GIT_CONFIG already exists"
-  info "==>" "do you want to re-set (y/n):"
+  msg="re-set"
 else
-  info "==>" "do you want to set gitconfig (y/n):"
+  msg="set"
 fi
-read ans
+read -r -p "==> do you want to $msg gitconfig (y/n): " ans
 if [ $ans = 'y' ]; then
   backup $GIT_CONFIG
-  rm -rf $GIT_CONFIG
   cp -f $TEMPLATE_GIT_CONFIG $GIT_CONFIG
 
   # setup user name and email
-  info "==>" "Your name: "
-  read name
+  read -r -p "==> Your name: " name
   git config --global user.name "$name"
-  info "==>" "Your Email: "
-  read email
+  read -r -p "==> Your name: " email
   git config --global user.email "$email"
 fi
 
-
 # config gitignore
-info "==>" "config gitignore"
+echo "==>" "config gitignore"
 GIT_IGNORE=~/.gitignore
 backup $GIT_IGNORE
-rm -rf $GIT_IGNORE
 linkconf $INSTALL_HOME/package/git/gitignore $GIT_IGNORE

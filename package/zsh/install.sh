@@ -2,7 +2,8 @@
 
 source $LIB
 
-brewinstall zsh
+echo
+info "==>" "config zsh"
 
 echo "==> install oh my zsh"
 if [ ! -d ~/.oh-my-zsh ]; then
@@ -12,12 +13,14 @@ else
 fi
 
 # install customized zsh theme
-info "==>" "install customized zsh theme"
+SOURCE_FILE=$INSTALL_HOME/package/zsh/simple.zsh-theme
 TARGET_FILE=~/.oh-my-zsh/custom/themes/simple.zsh-theme
 backup $TARGET_FILE
-cp -vp $INSTALL_HOME/package/zsh/simple.zsh-theme $TARGET_FILE
+echo "==>" "install customized zsh theme"
+cp -p $SOURCE_FILE $TARGET_FILE
+log "copy: $SOURCE_FILE -> $TARGET_FILE"
 
 # symlink conf
-info "==>" "config zshrc"
+echo "==>" "config zshrc"
 backup ~/.zshrc
 linkconf $INSTALL_HOME/package/zsh/zshrc ~/.zshrc

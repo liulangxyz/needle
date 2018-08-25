@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# local language settings
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-
 # pyenv and pyenv-virtualenv
 if command -v pyenv 1>/dev/null 2>&1 ; then
   eval "$(pyenv init -)"
@@ -19,6 +15,3 @@ if command -v lsvirtualenv 1>/dev/null 2>&1 ; then
   export WORKON_HOME=$HOME/.python-env
   source /usr/local/bin/virtualenvwrapper.sh
 fi
-
-# java
-export JAVA_HOME=$(/usr/libexec/java_home)
