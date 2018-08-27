@@ -23,12 +23,18 @@ source $ZSH/oh-my-zsh.sh
 export SHELL_RC=$(readlink ~/.zshrc)
 export DOT_HOME=${SHELL_RC%/package*}
 
+# alias
+alias vizshrc="vi $DOT_HOME/package/zsh/zshrc && source $SHELL_RC"
+
 # load package config
 for config in $DOT_HOME/package/**/*rc.sh; do
   source "$config"
 done
 
 # load custom config
-if [ -e "$DOT_HOME/custom/config.sh" ]; then
-  source "$DOT_HOME/custom/config.sh"
+if ls $DOT_HOME/custom/ | grep -Eqs ".*rc\.sh"; then
+  unset config
+  for config in $DOT_HOME/custom/*rc.sh; do
+    source "$config"
+  done
 fi

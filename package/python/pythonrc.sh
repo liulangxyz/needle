@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# alias
+alias vipythonrc="vi $DOT_HOME/package/python/pythonrc.sh && source $SHELL_RC"
+
 # pyenv and pyenv-virtualenv
 if command -v pyenv 1>/dev/null 2>&1 ; then
   eval "$(pyenv init -)"
