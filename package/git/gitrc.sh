@@ -25,8 +25,16 @@ git_push_force() {
   git push --force
 }
 
+# checkout modified files at one go
+git_checkout() {
+  for f in $(git status -s | grep -E -v "\?\?" | cut -d ' ' -f 3); do
+    git checkout -- "$f"
+  done
+}
+
 # alias
 alias vigitrc="vi $DOT_HOME/package/git/gitrc.sh && source $SHELL_RC"
 alias vigitignore="vi ~/.gitignore"
 alias git-pulls="git_pulls"
 alias git-push-force="git_push_force"
+alias git-checkout="git_checkout"
