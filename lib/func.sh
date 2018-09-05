@@ -1,12 +1,16 @@
 #!/bin/bash
 
 # log
+#
+# $1: log message
 log() {
-  LOG="$INSTALL_HOME/log/install.log"
-  echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" >> $LOG
+  local log="$INSTALL_HOME/log/install.log"
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" >> $log
 }
 
 # install the brew if not installed yet
+#
+# $1: brew
 brewinstall() {
   info "==>" "install $1"
   if ! brew list "$1" 1>/dev/null 2>&1; then
@@ -18,33 +22,35 @@ brewinstall() {
 }
 
 # backup old non-symbolic file
+#
+# $1: file you want to backup
 backup() {
-  FILE=$1
-  BACKUP_FILE="$1-$TIMESTAMP.org"
+  local backup_file="$1-$TIMESTAMP.org"
 
   # delete symbolink file first
-  if [ -h "$FILE" ]; then
-    rm -rf "$FILE"
+  if [ -h "$1" ]; then
+    rm -rf "$1"
   fi
 
-  if [ -f "$FILE" ]; then
-    info "==>" "backup $FILE"
-    cp -p "$FILE" "$BACKUP_FILE"
-    log "backup: $FILE -> $BACKUP_FILE"
-    rm -rf "$FILE"
+  if [ -f "$1" ]; then
+    info "==>" "backup ${1//*\/}"
+    cp -p "$1" "$backup_file"
+    log "backup: $1 -> $backup_file"
+    rm -rf "$1"
   fi
 }
 
 # symlink conf file
+#
+# $1: link
+# $2: source file
 linkconf() {
-  SOURCE="$1"
-  TARGET="$2"
-  backup "$TARGET"
-  if [ -f "$SOURCE" ]; then
-    info "==>" "symlink ${SOURCE/*\/}"
-    ln -Fs "$SOURCE" "$TARGET"
-    log "symlink: $SOURCE -> $TARGET"
+  backup "$1"
+  if [ -f "$2" ]; then
+    info "==>" "symlink ${2//*\/}"
+    ln -Fs "$2" "$1"
+    log "symlink: $2 -> $1"
   else
-    error "$SOURCE does not exists"
+    error "$2 does not exists"
   fi
 }
