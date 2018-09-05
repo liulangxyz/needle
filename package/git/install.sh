@@ -6,18 +6,18 @@ brewinstall git
 
 # config gitconfig
 info "==>" "config gitconfig"
-GIT_CONFIG=~/.gitconfig
-TEMPLATE_GIT_CONFIG=$INSTALL_HOME/package/git/gitconfig.template
-if [ -f $GIT_CONFIG ]; then
-  warn "$GIT_CONFIG already exists"
+git_config=~/.gitconfig
+template_git_config=$INSTALL_HOME/package/git/gitconfig.template
+if [ -f $git_config ]; then
+  warn "$git_config already exists"
   msg="re-set"
 else
   msg="set"
 fi
 read -r -p "do you want to $msg gitconfig (y/n): " ans
 if [ $ans = 'y' ]; then
-  backup $GIT_CONFIG
-  cp -f $TEMPLATE_GIT_CONFIG $GIT_CONFIG
+  backup $git_config
+  cp -f $template_git_config $git_config
 
   # setup user name and email
   read -r -p "Your name: " name
@@ -28,6 +28,6 @@ fi
 
 # config gitignore
 info "==>" "config gitignore"
-GIT_IGNORE=~/.gitignore
-backup $GIT_IGNORE
-linkconf $INSTALL_HOME/package/git/gitignore $GIT_IGNORE
+git_ignore=~/.gitignore
+backup $git_ignore
+linkconf $INSTALL_HOME/package/git/gitignore $git_ignore

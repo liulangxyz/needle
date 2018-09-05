@@ -1,4 +1,4 @@
 #!/bin/bash
 
 alias vi="vim"
-alias vivimrc="vi ~/.vimrc"
+alias vivimrc="vi $DOT_HOME/package/vim/vimrc.sh && source $SHELLRC"

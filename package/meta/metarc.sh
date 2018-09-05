@@ -4,7 +4,7 @@
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-alias vishrc="vi $DOT_HOME/package/sh/shrc.sh && source $SHELL_RC"
+alias vishrc="vi $DOT_HOME/package/meta/metarc.sh && source $SHELLRC"
 alias vimk="vi $DOT_HOME/custom/monkey.md"
 alias vitodo="vi $DOT_HOME/custom/todo.md"
 

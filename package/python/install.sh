@@ -2,14 +2,9 @@
 
 source $LIB
 
-brewinstall python3
-
-info "==>" "config pip.conf"
-PIP_CONF=~/.pip/pip.conf
-mkdir -p ~/.pip
-backup $PIP_CONF
-linkconf $INSTALL_HOME/package/python/pip.conf $PIP_CONF
-
+# install python packages
+#
+# $1: package in pip
 pipinstall() {
   info "==>" "pip3 install $1"
   if ! pip3 show "$1" >/dev/null 2>&1; then
@@ -19,6 +14,14 @@ pipinstall() {
     warn "already installed"
   fi
 }
+
+brewinstall python3
+
+info "==>" "config pip.conf"
+pip_conf=~/.pip/pip.conf
+mkdir -p ~/.pip
+backup $pip_conf
+linkconf $INSTALL_HOME/package/python/pip.conf $pip_conf
 
 # libs
 pipinstall virtualenvwrapper

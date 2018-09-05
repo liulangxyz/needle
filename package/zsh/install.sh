@@ -12,19 +12,19 @@ else
 fi
 
 # install customized zsh theme
-SOURCE_FILE=$INSTALL_HOME/package/zsh/simple.zsh-theme
-TARGET_FILE=~/.oh-my-zsh/custom/themes/simple.zsh-theme
-if [ ! -f "$TARGET_FILE" ]; then
+customized_zsh_theme=$INSTALL_HOME/package/zsh/simple.zsh-theme
+target_file=~/.oh-my-zsh/custom/themes/simple.zsh-theme
+if [ ! -f "$target_file" ]; then
   msg="install"
 else
   msg="re-install"
 fi
 read -r -p "do you want to $msg simple.zsh-theme (y/n): " ans
 if [ $ans = "y" ]; then
-  backup $TARGET_FILE
+  backup $target_file
   info "==>" "install simple.zsh-theme"
-  cp -p $SOURCE_FILE $TARGET_FILE
-  log "copy: $SOURCE_FILE -> $TARGET_FILE"
+  cp -p $customized_zsh_theme $target_file
+  log "copy: $customized_zsh_theme -> $target_file"
 fi
 
 # symlink conf

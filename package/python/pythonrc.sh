@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # alias
-alias vipythonrc="vi $DOT_HOME/package/python/pythonrc.sh && source $SHELL_RC"
+alias vipythonrc="vi $DOT_HOME/package/python/pythonrc.sh && source $SHELLRC"
 
 # pyenv and pyenv-virtualenv
 if command -v pyenv 1>/dev/null 2>&1 ; then
@@ -10,7 +10,7 @@ if command -v pyenv 1>/dev/null 2>&1 ; then
 fi
 
 # virtualenvwrapper
-if command -v lsvirtualenv 1>/dev/null 2>&1 ; then
+if pip3 show virtualenvwrapper 1>/dev/null 2>&1 ; then
   if command -v python3 1>/dev/null 2>&1 ; then
     export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
   fi
