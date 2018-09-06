@@ -42,15 +42,15 @@ backup() {
 
 # symlink conf file
 #
-# $1: link
-# $2: source file
+# $1: source file
+# $2: link
 linkconf() {
-  backup "$1"
-  if [ -f "$2" ]; then
-    info "==>" "symlink ${2//*\/}"
-    ln -Fs "$2" "$1"
-    log "symlink: $2 -> $1"
+  backup "$2"
+  if [ -f "$1" ]; then
+    info "==>" "symlink ${1//*\/}"
+    ln -Fs "$1" "$2"
+    log "symlink: $1 -> $2"
   else
-    error "$2 does not exists"
+    error "$1 does not exists"
   fi
 }
