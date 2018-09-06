@@ -15,7 +15,3 @@ if ! command -v nvm 1>/dev/null 2>&1; then
     cd "$current_dir"
   fi
 fi
-
-# load nvm config
-[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh --no-use"
-[ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"
