@@ -5,6 +5,7 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 alias vimetarc="vi $DOT_HOME/package/meta/metarc.sh && source $SHELLRC"
+alias cddotfile="cd $DOT_HOME"
 alias vimk="vi $DOT_HOME/custom/monkey.md"
 alias vitodo="vi $DOT_HOME/custom/todo.md"
 
