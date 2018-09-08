@@ -34,11 +34,6 @@ if ! command -v nvm 1>/dev/null 2>&1; then
   nvm use system
 fi
 
-# automatic version switching for node
-npminstall avn
-npminstall avn-nvm
-npminstall avn-n
-
 # typescript
 npminstall typescript
 npminstall tslint
