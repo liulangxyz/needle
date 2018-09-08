@@ -35,6 +35,3 @@ git_checkout() {
 # alias
 alias vigitrc="vi $DOT_HOME/package/git/gitrc.sh && source $SHELLRC"
 alias vigitignore="vi ~/.gitignore"
-alias git-pulls="git_pulls"
-alias git-push-force="git_push_force"
-alias git-checkout="git_checkout"
