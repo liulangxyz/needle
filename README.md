@@ -3,16 +3,44 @@
 My setup of Mac OS development environment.
 
 
-## How-to
-
-Install
+## Installation
 
 ```sh
+$ git clone https://github.com/kkninjae/dotfile.git ~/.dotfile
+
+$ cd ~/.dotfile
+
 $ sh INSTALL.sh
 ```
 
 
-Add cutomized settings
+## Customization
 
-*   Create a `config.sh` in custom directory, it could be a symbolic link
-*   `ZSHRC` will load this script when launched
+Any file with suffix `rc.sh` in `custom` directory will be loaded into zsh when
+starting any zsh process.
+
+
+## Packages
+
+*   cmake
+*   fzf
+*   fd
+*   ag
+*   pt
+*   youtube-dl
+*   httpie
+*   git
+*   node
+    *   nvm
+    *   typescript
+    *   tslint
+*   python3
+    *   virtualenvwrapper
+    *   pyenv
+    *   pyenv-virtualenvwrapper
+*   tmux
+    *   reattach-to-user-namespace
+*   vim
+    *   macvim
+*   zsh
+    *   oh-my-zsh
