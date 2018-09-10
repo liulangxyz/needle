@@ -207,9 +207,6 @@ nnoremap <leader>ev :vs $MYVIMRC<CR>
 " set working directory
 nnoremap <leader>. :lcd %:p:h<CR>:pwd<CR>
 
-" shortcuts
-nnoremap zz :wq<CR>
-
 " navigate among windows
 nnoremap ] <C-w>
 nnoremap ]h <C-w>h

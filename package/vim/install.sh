@@ -21,5 +21,5 @@ fi
 
 read -r -p "do you want to compile YouCompleteMe (y/n): " ans
 if [ $ans = 'y' ]; then
-  ~/.vim/plug/YouCompleteMe/install.py --clang-completer --js-completer --java-completer
+  ~/.vim/plug/YouCompleteMe/install.py --clang-completer --java-completer
 fi
