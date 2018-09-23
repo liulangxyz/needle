@@ -4,10 +4,10 @@ set -e
 
 show_help() {
   echo "NAME"
-  echo "    install.sh - install and configure binaries"
+  echo "    $SCRIPT_NAME - install and configure binaries"
   echo
   echo "SYNOPSIS"
-  echo "    ./install.sh [command]"
+  echo "    $SCRIPT_NAME [command]"
   echo
   echo "COMMAND"
   echo "    install [package] install and configure the package"
@@ -101,8 +101,8 @@ export LIB=$INSTALL_HOME/lib/import.sh
 source $LIB
 
 # make sure install.sh is invoked in correct directory
-if [ ! -f "$INSTALL_HOME/install.sh" ]; then
-  echo "Please invoke install.sh from where it resides"
+if [ ! -f "$INSTALL_HOME/$SCRIPT_NAME" ]; then
+  echo "Please invoke $SCRIPT_NAME from where it resides"
   exit 1
 fi
 

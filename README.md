@@ -12,28 +12,28 @@ $ git clone https://github.com/kkninjae/dotfile.git ~/.dotfile
 
 $ cd ~/.dotfile
 
-$ ./install.sh install
+$ ./needle.sh install
 ```
 
 
 Install a specified package
 
 ```sh
-$ ./install.sh install [package]
+$ ./needle.sh install [package]
 ```
 
 
 Show package information
 
 ```sh
-$ ./install.sh info [package]
+$ ./needle.sh info [package]
 ```
 
 
 Show supported packages
 
 ```sh
-$ ./install.sh ls
+$ ./needle.sh ls
 ```
 
 
