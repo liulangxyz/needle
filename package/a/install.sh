@@ -15,3 +15,12 @@ for file in ${files[@]}; do
     touch "$target_file"
   fi
 done
+
+# essentials
+brewinstall cmake
+brewinstall fzf
+brewinstall fd
+brewinstall ag
+brewinstall pt
+brewinstall youtube-dl
+brewinstall httpie

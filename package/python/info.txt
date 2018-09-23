@@ -1,0 +1,10 @@
+==> python
+installed:
+  - python3
+  - pip3
+  - virtualenvwrapper: call loadvirtualenvwrapper to load virtualenvwrapper
+  - pyenv: call loadpyenv to load pyenv
+  - pyenv-virtualenvwrapper
+
+configured:
+  - pip.conf

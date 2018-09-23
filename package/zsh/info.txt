@@ -1,0 +1,8 @@
+==> zsh
+installed:
+  - zsh
+  - oh-my-zsh
+
+configured:
+  - simple.zsh-theme
+  - zshrc

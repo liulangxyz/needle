@@ -1,0 +1,13 @@
+==> a: meta package
+installed:
+  - cmake
+  - fzf
+  - fd
+  - ag
+  - pt
+  - youtube-dl
+  - httpie
+
+configured:
+  - monkey.md: call vimonkey to open and edit
+  - todo.md: call vitodo to open and edit

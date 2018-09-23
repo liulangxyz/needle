@@ -1,0 +1,7 @@
+==> node
+installed:
+  - node
+  - nvm: call loadnvm to laod nvm
+  - typescript
+  - tslint
+
