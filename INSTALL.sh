@@ -108,8 +108,10 @@ fi
 
 if [ "$1" = "install" ]; then
   if [ -z "$2" ]; then
+    check_precondition
     install_packages
   else
+    check_precondition
     install_package "$2"
   fi
 elif [ "$1" = "ls" ]; then
