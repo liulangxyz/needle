@@ -12,7 +12,7 @@ else
 fi
 
 # install customized zsh theme
-customized_zsh_theme=$INSTALL_HOME/package/zsh/simple.zsh-theme
+customized_zsh_theme=$NEEDLE_HOME/package/zsh/simple.zsh-theme
 target_file=~/.oh-my-zsh/custom/themes/simple.zsh-theme
 if [ ! -f "$target_file" ]; then
   msg="install"
@@ -30,4 +30,4 @@ fi
 # symlink conf
 info "==>" "config zshrc"
 backup ~/.zshrc
-linkconf $INSTALL_HOME/package/zsh/zshrc ~/.zshrc
+linkconf $NEEDLE_HOME/package/zsh/zshrc ~/.zshrc

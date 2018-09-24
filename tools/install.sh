@@ -16,4 +16,5 @@ if ! command -v git >/dev/null 2>&1; then
 fi
 
 git clone https://github.com/kkninjae/needle.git "$TARGET_DIR"
-/bin/bash -c "$TARGET_DIR/needle.sh install"
+ln -sF "$TARGET_DIR/needle.sh" /usr/local/bin/needle
+needle install --all

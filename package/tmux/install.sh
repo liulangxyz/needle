@@ -7,4 +7,4 @@ brewinstall reattach-to-user-namespace
 
 info "==>" "config tmux.conf"
 backup ~/.tmux.conf
-linkconf $INSTALL_HOME/package/tmux/tmux.conf ~/.tmux.conf
+linkconf $NEEDLE_HOME/package/tmux/tmux.conf ~/.tmux.conf

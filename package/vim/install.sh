@@ -7,7 +7,7 @@ brewinstall macvim
 
 info "==>" "config vimrc"
 backup ~/.vimrc
-linkconf $INSTALL_HOME/package/vim/vimrc ~/.vimrc
+linkconf $NEEDLE_HOME/package/vim/vimrc ~/.vimrc
 
 if [ ! -f ~/.vim/autoload/plug.vim ]; then
   info "==>" "install plug.vim"

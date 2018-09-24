@@ -21,7 +21,7 @@ info "==>" "config pip.conf"
 pip_conf=~/.pip/pip.conf
 mkdir -p ~/.pip
 backup $pip_conf
-linkconf $INSTALL_HOME/package/python/pip.conf $pip_conf
+linkconf $NEEDLE_HOME/package/python/pip.conf $pip_conf
 
 # libs
 pipinstall virtualenvwrapper

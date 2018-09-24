@@ -7,7 +7,7 @@ brewinstall git
 # config gitconfig
 info "==>" "config gitconfig"
 git_config=~/.gitconfig
-template_git_config=$INSTALL_HOME/package/git/gitconfig.template
+template_git_config=$NEEDLE_HOME/package/git/gitconfig.template
 if [ -f $git_config ]; then
   warn "$git_config already exists"
   msg="re-set"
@@ -30,4 +30,4 @@ fi
 info "==>" "config gitignore"
 git_ignore=~/.gitignore
 backup $git_ignore
-linkconf $INSTALL_HOME/package/git/gitignore $git_ignore
+linkconf $NEEDLE_HOME/package/git/gitignore $git_ignore

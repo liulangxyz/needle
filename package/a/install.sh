@@ -9,7 +9,7 @@ files=(
 )
 
 for file in ${files[@]}; do
-  target_file="$INSTALL_HOME/custom/$file"
+  target_file="$NEEDLE_HOME/custom/$file"
   if [ ! -f "$target_file" ]; then
     info "==>" "create $file"
     touch "$target_file"
