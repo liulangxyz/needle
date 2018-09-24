@@ -3,6 +3,13 @@
 My setup of Mac OS development environment.
 
 
+## Setup
+
+```sh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/kkninjae/needle/master/tools/install.sh)"
+```
+
+
 ## How-to
 
 Install all packages
