@@ -13,7 +13,7 @@ show_help() {
   echo "    install [package] install and configure the package"
   echo "            if no package is specified, it will install all packages"
   echo
-  echo "    ls      list all packagesi it can install and configure"
+  echo "    ls      list all packages it supports"
   echo
   echo "    info    [package] show the information related to the package"
   echo
@@ -59,7 +59,7 @@ install_package() {
   if [ -f "$script" ]; then
     /bin/sh "$script"
   else
-    error "Error:" "install.sh of package $1 could not be found"
+    error "Error:" "install.sh of package $1 not found"
     exit 1
   fi
 }
@@ -88,23 +88,18 @@ info_package() {
   if [ -f "$doc" ]; then
     cat "$doc"
   else
-    error "Error:" "info.txt of package $1 could not be found"
+    error "Error:" "info.txt of package $1 not be found"
     exit 1
   fi
 }
 
 
-export SCRIPT_NAME=$0
-export INSTALL_HOME=$(pwd)
+SCRIPT_NAME="$0"
+CURR_PATH=$(pwd)
+export INSTALL_HOME="$CURR_PATH/${SCRIPT_NAME%\/*}"
 export TIMESTAMP=$(date '+%Y%m%d%H%M%S')
-export LIB=$INSTALL_HOME/lib/import.sh
+export LIB=$INSTALL_HOME/lib/func.sh
 source $LIB
-
-# make sure install.sh is invoked in correct directory
-if [ ! -f "$INSTALL_HOME/$SCRIPT_NAME" ]; then
-  echo "Please invoke $SCRIPT_NAME from where it resides"
-  exit 1
-fi
 
 if [ "$1" = "install" ]; then
   if [ -z "$2" ]; then
