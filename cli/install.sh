@@ -17,7 +17,7 @@ install() {
 }
 
 check_precondition
-if [ "$2" = '--all' ]; then
+if [ "$1" = '--all' ]; then
   for pkg_path in $NEEDLE_HOME/package/*; do
     install "${pkg_path//*\/}"
   done
