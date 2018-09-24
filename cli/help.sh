@@ -9,12 +9,12 @@ echo "SYNOPSIS"
 echo "    $SCRIPT_NAME [command]"
 echo
 echo "COMMAND"
-echo "    install [package] install and configure the package"
-echo "            if no package is specified, it will install all packages"
-echo
+echo "    install [package]"
+echo "              install and configure specified package"
+echo "            --all"
+echo "              install and configure all packages"
 echo "    ls      list all packages it supports"
-echo
-echo "    info    [package] show the information related to the package"
-echo
+echo "    inspect [package]"
+echo "              show the information related to the package"
 echo "    help    show help"
 exit 1

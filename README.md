@@ -1,50 +1,38 @@
-# dotfile
+# Needle
 
-My setup of Mac OS development environment.
+A convenient tool to help setup different development tools on MacOS.
 
 
-## Setup
+## How-to
+
+Install
 
 ```sh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/kkninjae/needle/master/tools/install.sh)"
 ```
 
 
-## How-to
-
-Install all packages
+Uninstall
 
 ```sh
-$ git clone https://github.com/kkninjae/dotfile.git ~/.dotfile
-
-$ cd ~/.dotfile
-
-$ ./needle.sh install
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/kkninjae/needle/master/tools/uninstall.sh)"
 ```
 
 
-Install a specified package
+Usage of needle
 
 ```sh
-$ ./needle.sh install [package]
-```
+# inspect a package
+$ needle inspect [package]
 
+# list all supported packages
+$ needle ls
 
-Show package information
-
-```sh
-$ ./needle.sh info [package]
-```
-
-
-Show supported packages
-
-```sh
-$ ./needle.sh ls
+# show help
+$ needle help
 ```
 
 
 ## Customization
 
-Any file with suffix `rc.sh` in `custom` directory will be loaded into zsh when
-starting any zsh process.
+Any file with suffix `rc.sh` in `custom` directory will be loaded into zsh.
