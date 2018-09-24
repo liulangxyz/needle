@@ -95,8 +95,11 @@ info_package() {
 
 
 SCRIPT_NAME="$0"
-CURR_PATH=$(pwd)
-export INSTALL_HOME="$CURR_PATH/${SCRIPT_NAME%\/*}"
+if [ "${SCRIPT_NAME:0:1}" = '/' ]; then
+  export INSTALL_HOME="${SCRIPT_NAME%\/*}"
+else
+  export INSTALL_HOME="$(pwd)/${SCRIPT_NAME%\/*}"
+fi
 export TIMESTAMP=$(date '+%Y%m%d%H%M%S')
 export LIB=$INSTALL_HOME/lib/func.sh
 source $LIB
