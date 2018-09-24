@@ -24,7 +24,7 @@ error() {
   echo $'\e[1;31m'"$1"$'\e[0m' "${@:2}"
 }
 
-# log to a specified file or global log file if not specified
+# log
 #
 # $1: message
 # $2: file
@@ -37,7 +37,7 @@ log() {
 #
 # $1: brew
 brewinstall() {
-  info "==>" "install $1"
+  info "==>" "brew install $1"
   if ! brew list "$1" 1>/dev/null 2>&1; then
     brew install "$1"
     log "brew install: $1"

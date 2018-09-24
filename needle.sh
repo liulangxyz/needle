@@ -94,12 +94,19 @@ info_package() {
 }
 
 
-SCRIPT_NAME="$0"
-if [ "${SCRIPT_NAME:0:1}" = '/' ]; then
-  export INSTALL_HOME="${SCRIPT_NAME%\/*}"
+SCRIPT="$0"
+if [ "${SCRIPT:0:1}" = '/' ]; then
+  export SCRIPT_NAME="$SCRIPT"
+  export INSTALL_HOME="${SCRIPT%\/*}"
+elif [ "${SCRIPT:0:2}" = './' ]; then
+  SCRIPT="${SCRIPT:2}"
+  export SCRIPT_NAME="${SCRIPT}"
+  export INSTALL_HOME="$(pwd)/${SCRIPT%\/*}"
 else
-  export INSTALL_HOME="$(pwd)/${SCRIPT_NAME%\/*}"
+  export SCRIPT_NAME="${SCRIPT}"
+  export INSTALL_HOME="$(pwd)/${SCRIPT%\/*}"
 fi
+
 export TIMESTAMP=$(date '+%Y%m%d%H%M%S')
 export LIB=$INSTALL_HOME/lib/func.sh
 source $LIB
