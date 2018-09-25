@@ -9,8 +9,8 @@ if [ ! -d "$TARGET_DIR" ]; then
   exit 1
 fi
 
-echo "==> delete $TARGET_DIR"
+echo "==> delete needle from $TARGET_DIR"
 rm -rf "$TARGET_DIR"
 
-echo "==> delete needle"
+echo "==> delete needle bin from /usr/local/bin/needle"
 rm -rf /usr/local/bin/needle
