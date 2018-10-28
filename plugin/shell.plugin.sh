@@ -5,12 +5,12 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 # files
-alias viarc="vi $DOT_HOME/package/a/arc.sh && source $SHELLRC"
-alias vimk="vi $DOT_HOME/custom/monkey.md"
-alias vitodo="vi $DOT_HOME/custom/todo.md"
+alias vipluginshell="vi $NEEDLE_HOME/plugin/shell.plugin.sh && source $SHELLRC"
+alias vimk="vi $NEEDLE_HOME/custom/monkey.md"
+alias vitodo="vi $NEEDLE_HOME/custom/todo.md"
 
 # directories
-alias cddotfile="cd $DOT_HOME"
+alias cddotfile="cd $NEEDLE_HOME"
 alias mk="cd ~/Documents"
 
 # macos

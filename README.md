@@ -1,6 +1,6 @@
 # Needle
 
-A convenient tool to help setup different development tools on MacOS.
+A tool to setup my different development tools on MacOS.
 
 
 ## How-to
@@ -19,20 +19,6 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/kkninjae/needle/master/too
 ```
 
 
-Usage of needle
-
-```sh
-# inspect a package
-$ needle inspect [package]
-
-# list all supported packages
-$ needle ls
-
-# show help
-$ needle help
-```
-
-
 ## Customization
 
-Any file with suffix `rc.sh` in `custom` directory will be loaded into zsh.
+Any file with suffix `.plugin.sh` in `custom` directory will be loaded into zsh.

@@ -1,7 +1,0 @@
-==> tmux
-installed:
-  - tmux
-  - reattach-to-user-namespace
-
-configured:
-  - tmux.conf

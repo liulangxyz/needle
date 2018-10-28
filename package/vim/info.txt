@@ -1,9 +1,0 @@
-==> vim
-installed:
-  - vim
-  - macvim
-  - plug.vim
-
-configured:
-  - vimrc
-  - YouCompleteMe

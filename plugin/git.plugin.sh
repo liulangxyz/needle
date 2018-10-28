@@ -33,5 +33,5 @@ git_checkout() {
 }
 
 # alias
-alias vigitrc="vi $DOT_HOME/package/git/gitrc.sh && source $SHELLRC"
+alias viplugingit="vi $NEEDLE_HOME/plugin/git.plugin.sh && source $SHELLRC"
 alias vigitignore="vi ~/.gitignore"

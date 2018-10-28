@@ -1,7 +1,0 @@
-==> git
-installed:
-  - git
-
-configured:
-  - gitconfig
-  - gitignore

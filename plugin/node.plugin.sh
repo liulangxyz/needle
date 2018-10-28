@@ -7,3 +7,6 @@ loadnvm() {
   [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
   [ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"
 }
+
+# alias
+alias vipluginnode="vi $NEEDLE_HOME/plugin/node.plugin.sh && source $SHELLRC"

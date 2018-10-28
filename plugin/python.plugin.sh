@@ -17,4 +17,4 @@ loadvirtualenvwrapper() {
 }
 
 # alias
-alias vipythonrc="vi $DOT_HOME/package/python/pythonrc.sh && source $SHELLRC"
+alias vipluginpython="vi $NEEDLE_HOME/plugin/python.plugin.sh && source $SHELLRC"

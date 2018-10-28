@@ -20,19 +20,57 @@ fi
 export SCRIPT_NAME="${SCRIPT//*\/}"
 export NEEDLE_HOME="${SCRIPT%\/*}"
 export TIMESTAMP=$(date '+%Y%m%d%H%M%S')
-export LIB=$NEEDLE_HOME/lib/import.sh
 
-case "$1" in
-  install )
-    /bin/sh "$NEEDLE_HOME/cli/install.sh" "$2"
-    ;;
-  inspect )
-    /bin/sh "$NEEDLE_HOME/cli/inspect.sh" "$2"
-    ;;
-  ls )
-    /bin/sh "$NEEDLE_HOME/cli/ls.sh"
-    ;;
-  * )
-    /bin/sh "$NEEDLE_HOME/cli/help.sh"
-    ;;
-esac
+source $NEEDLE_HOME/lib/util.sh
+source $NEEDLE_HOME/lib/config.sh
+
+check_precondition
+
+# shell
+info "==>" "setup shell"
+brewinstall cmake
+brewinstall fzf
+brewinstall fd
+brewinstall ag
+brewinstall pt
+brewinstall youtube-dl
+brewinstall httpie
+config_files
+
+# git
+info "==>" "setup git"
+brewinstall git
+config_gitconfig
+config_gitignore
+
+# node
+info "==>" "setup node"
+brewinstall node
+npminstall typescript
+npminstall tslint
+config_nvm
+
+# python
+info "==>" "setup python"
+brewinstall python3
+brewinstall pyenv
+brewinstall pyenv-virtualenvwrapper
+pipinstall virtualenvwrapper
+config_pip
+
+# tmux
+info "==>" "setup tmux"
+brewinstall tmux
+brewinstall reattach-to-user-namespace
+config_tmux
+
+# vim
+info "==>" "setup vim"
+brewinstall vim
+brewinstall macvim
+config_vim
+
+# zsh
+info "==>" "setup zsh"
+brewinstall zsh
+config_ohmyzsh

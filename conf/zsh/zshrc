@@ -1,0 +1,26 @@
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+export ZSH=~/.oh-my-zsh
+
+# zsh theme
+ZSH_THEME="simple"
+
+# disable auto-setting terminal title
+DISABLE_AUTO_TITLE="true"
+
+# plugins
+plugins=(
+  git
+  tmux
+  pip
+  docker
+  npm
+)
+
+# init oh-my-zsh
+source $ZSH/oh-my-zsh.sh
+
+# load plugins
+export SHELLRC=$(readlink ~/.zshrc)
+export NEEDLE_HOME=${SHELLRC%/conf*}
+PLUGINS=$NEEDLE_HOME/plugin/load.sh
+[ -f "$PLUGINS" ] && source "$PLUGINS"
