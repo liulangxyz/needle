@@ -1,6 +1,6 @@
 # Needle
 
-A tool to setup my different development tools on MacOS.
+A tool to setup my dotfiles and development tools on MacOS.
 
 
 ## How-to
