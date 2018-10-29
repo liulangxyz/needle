@@ -5,7 +5,13 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 # files
+alias viplugingit="vi $NEEDLE_HOME/plugin/git.plugin.sh && source $SHELLRC"
+alias vipluginnode="vi $NEEDLE_HOME/plugin/node.plugin.sh && source $SHELLRC"
+alias vipluginpython="vi $NEEDLE_HOME/plugin/python.plugin.sh && source $SHELLRC"
 alias vipluginshell="vi $NEEDLE_HOME/plugin/shell.plugin.sh && source $SHELLRC"
+alias vigitignore="vi ~/.gitignore"
+alias vizshrc="vi ~/.zshrc && source $SHELLRC"
+alias vitmuxconf="vi ~/.tmux.conf && tmux source ~/.tmux.conf"
 alias vimk="vi $NEEDLE_HOME/custom/monkey.md"
 alias vitodo="vi $NEEDLE_HOME/custom/todo.md"
 
