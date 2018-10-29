@@ -14,6 +14,8 @@ alias vizshrc="vi ~/.zshrc && source $SHELLRC"
 alias vitmuxconf="vi ~/.tmux.conf && tmux source ~/.tmux.conf"
 alias vimk="vi $NEEDLE_HOME/custom/monkey.md"
 alias vitodo="vi $NEEDLE_HOME/custom/todo.md"
+alias mvimk="mvim $NEEDLE_HOME/custom/monkey.md"
+alias mvitodo="mvim $NEEDLE_HOME/custom/todo.md"
 
 # directories
 alias cddotfile="cd $NEEDLE_HOME"
