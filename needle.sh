@@ -67,7 +67,6 @@ config_tmux
 # vim
 info "==>" "setup vim"
 brewinstall vim
-brewinstall macvim
 config_vim
 
 # zsh

@@ -4,6 +4,9 @@
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
+# alias
+alias vi=vim
+
 # files
 alias viplugingit="vi $NEEDLE_HOME/plugin/git.plugin.sh && source $SHELLRC"
 alias vipluginnode="vi $NEEDLE_HOME/plugin/node.plugin.sh && source $SHELLRC"
