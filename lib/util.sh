@@ -39,10 +39,10 @@ backup() {
   if [ -f "$1" -a ! -L "$1" ]; then
     local backup_file="$1-$TIMESTAMP.bkp"
     mv "$1" "$backup_file"
-    warn "backup" "${1//*\/}"
+    echo "==>" "backup ${1//*\/}"
     log "backup: $1 -> $backup_file"
   else
-    log "Warn:" "backup failed due to not a file or symbolic file: $1"
+    warn "Warn:" "Discard backup due to not a file or symbolic file: $1"
   fi
 }
 
@@ -53,7 +53,7 @@ backup() {
 linkconf() {
   if [ -f "$1" ]; then
     ln -Fs "$1" "$2"
-    warn "symlink" "${1//*\/}"
+    echo "==>" "symlink ${1//*\/}"
     log "symlink: $1 -> $2"
   else
     error "Error:" "linkconf failed due to not a file: $1"
@@ -64,7 +64,7 @@ linkconf() {
 #
 # $1: brew
 brewinstall() {
-  warn "brew install" "$1"
+  echo "==>" "brew install $1"
   if ! brew list "$1" 1>/dev/null 2>&1; then
     brew install "$1"
     log "brew install: $1"
@@ -77,7 +77,7 @@ brewinstall() {
 #
 # $1: package
 npminstall() {
-  warn "npm install" "$1"
+  echo "==>" "npm install $1"
   if ! npm ls "$1" -g --depth 0 1>/dev/null 2>&1; then
     npm install -g "$1"
     log "npm install: $1"
@@ -90,7 +90,7 @@ npminstall() {
 #
 # $1: package
 pipinstall() {
-  warn "pip3 install" "$1"
+  echo "==>" "pip3 install $1"
   if ! pip3 show "$1" >/dev/null 2>&1; then
     pip3 install "$1"
     log "pip3 install: $1"

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 config_files() {
-  warn "config" "files"
+  echo "==> config files"
   local files=(
     "monkey.md"
     "todo.md"
@@ -17,7 +17,7 @@ config_files() {
 }
 
 config_gitignore() {
-  warn "config" "gitignore"
+  echo "==> config gitignore"
   local target=~/.gitignore
   local source="$NEEDLE_HOME/conf/git/gitignore"
   backup "$target"
@@ -25,9 +25,10 @@ config_gitignore() {
 }
 
 config_gitconfig() {
-  warn "config" "gitconfig"
+  echo "==> config gitconfig"
   local target=~/.gitconfig
   local source="$NEEDLE_HOME/conf/git/gitconfig.template"
+
   backup "$target"
   cp -f "$source" "$target"
 
@@ -39,8 +40,8 @@ config_gitconfig() {
 }
 
 config_nvm() {
-  warn "config" "nvm"
-  export NVM_DIR=~/.nvm
+  echo "==> config nvm"
+  export NVM_DIR=$HOME/.nvm
   if [ ! -s "$NVM_DIR/nvm.sh" ]; then
     echo "install node version manager"
     git clone https://github.com/creationix/nvm.git "$NVM_DIR"
@@ -51,7 +52,7 @@ config_nvm() {
 }
 
 config_pip() {
-  warn "config" "pip.conf"
+  echo "==> config pip.conf"
   local target=~/.pip/pip.conf
   local source="$NEEDLE_HOME/conf/python/pip.conf"
   mkdir -p "${target%\/*}"
@@ -60,7 +61,7 @@ config_pip() {
 }
 
 config_tmux() {
-  warn "config" "tmux.conf"
+  echo "==> config tmux.conf"
   local target=~/.tmux.conf
   local source="$NEEDLE_HOME/conf/tmux/tmux.conf"
   backup "$target"
@@ -68,7 +69,7 @@ config_tmux() {
 }
 
 config_vim() {
-  warn "config" "vim"
+  echo "==> config vim"
   local target=~/.vimrc
   local source="$NEEDLE_HOME/conf/vim/vimrc"
   backup "$target"
@@ -91,8 +92,8 @@ config_vim() {
   fi
 }
 
-config_ohmyzsh() {
-  warn "config" "ohmyzsh"
+config_zsh() {
+  echo "==> config zsh"
   if [ ! -d ~/.oh-my-zsh ]; then
     echo "install oh-my-zsh"
     /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -106,7 +107,6 @@ config_ohmyzsh() {
     cp "$source" "$target"
   fi
 
-  warn "config" "zshrc"
   local target=~/.zshrc
   local source="$NEEDLE_HOME/conf/zsh/zshrc"
   backup "$target"
