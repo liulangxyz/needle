@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 SCRIPT="$0"
 
 if [ -h "$SCRIPT" ]; then
@@ -72,4 +70,4 @@ config_vim
 # zsh
 info "==>" "setup zsh"
 brewinstall zsh
-config_ohmyzsh
+config_zsh

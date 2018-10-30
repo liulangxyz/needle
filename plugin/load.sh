@@ -5,6 +5,14 @@ if [ -z "$NEEDLE_HOME" ]; then
   exit 1
 fi
 
+# edit plugin
+#
+# $1: plugin name
+viplugin() {
+  local plugin="$NEEDLE_HOME/plugin/$1.plugin.sh"
+  [ -f "$plugin" ] && vi "$plugin" && source "$SHELLRC"
+}
+
 # load plugins
 for plugin in $NEEDLE_HOME/plugin/*.plugin.sh; do
   [ -f "$plugin" ] && source "$plugin"
