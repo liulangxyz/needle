@@ -5,7 +5,7 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 # alias
-alias vi=vim
+alias vi=/usr/local/bin/vim
 
 # files
 alias vigitignore="vi ~/.gitignore"
@@ -23,7 +23,6 @@ alias mk="cd ~/Documents"
 # macos
 alias showfiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hidefiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
-
 
 # fzf
 export FZF_DEFAULT_COMMAND='fd --type f'
