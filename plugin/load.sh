@@ -7,10 +7,17 @@ fi
 
 # edit plugin
 #
-# $1: plugin name
+# $1: plugin name or ls
 viplugin() {
-  local plugin="$NEEDLE_HOME/plugin/$1.plugin.sh"
-  [ -f "$plugin" ] && vi "$plugin" && source "$SHELLRC"
+  if [ "$1" = "ls" ]; then
+    echo "Available plugins:"
+    for plugin in $NEEDLE_HOME/plugin/*.plugin.sh; do
+      echo "${plugin//*plugin\/}"
+    done
+  else
+    local plugin="$NEEDLE_HOME/plugin/$1.plugin.sh"
+    [ -f "$plugin" ] && vim "$plugin" && source "$SHELLRC"
+  fi
 }
 
 # load plugins
