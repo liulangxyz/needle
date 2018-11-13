@@ -18,8 +18,7 @@ endif
 call plug#begin('~/.vim/plug')
 
 " theme
-Plug 'kristijanhusak/vim-hybrid-material'
-Plug 'altercation/vim-colors-solarized'
+Plug 'NLKNguyen/papercolor-theme'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -44,22 +43,17 @@ Plug 'mattn/emmet-vim'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'leafgarland/typescript-vim'
-" Plug 'peitalin/vim-jsx-typescript'
+Plug 'peitalin/vim-jsx-typescript'
 
 call plug#end()
 
 
 " theme
 set background=dark
-if has('gui_running')
-    colorscheme hybrid_material
-else
-    colorscheme hybrid_reverse
-endif
+colorscheme PaperColor
 
 " status line
 set laststatus=2
-let g:airline_theme='tomorrow'
 
 " nerdtree
 nnoremap <leader>a :NERDTreeToggle<CR>
