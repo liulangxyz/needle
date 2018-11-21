@@ -31,3 +31,10 @@ git_checkout() {
     git checkout -- "$f"
   done
 }
+
+# git reset all changes
+git_reset() {
+  for f in $(git status -s | cut -d ' ' -f 3); do
+    git reset HEAD "$f"
+  done
+}
