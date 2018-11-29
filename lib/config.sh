@@ -90,6 +90,11 @@ config_vim() {
   if [ $ans = 'y' ]; then
     python3 ~/.vim/plug/YouCompleteMe/install.py --clang-completer --java-completer
   fi
+
+  # override default vi
+  if [ ! -f /usr/local/bin/vi -a -f /usr/local/bin/vim ]; then
+    ln -s /usr/local/bin/vim /usr/local/bin/vi
+  fi
 }
 
 config_zsh() {
