@@ -38,3 +38,18 @@ git_reset() {
     git reset HEAD "$f"
   done
 }
+
+# checkout branch using fzf
+git_checkout_branch_fzf() {
+  git checkout $(ls .git/refs/heads | fzf)
+}
+
+# delete branch using fzf
+git_branch_delete_fzf() {
+  git branch -D $(ls .git/refs/heads | fzf)
+}
+
+# display branch using fzf
+git_branch_fzf() {
+  ls .git/refs/heads | fzf
+}
