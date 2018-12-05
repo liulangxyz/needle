@@ -38,7 +38,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'Valloric/YouCompleteMe'
 Plug 'tomtom/tcomment_vim'
 Plug 'w0rp/ale'
-Plug 'prettier/vim-prettier'
 Plug 'plasticboy/vim-markdown'
 Plug 'mattn/emmet-vim'
 Plug 'pangloss/vim-javascript'
@@ -74,14 +73,21 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 noremap <leader>c :TComment<CR>
 noremap <leader>b :TCommentBlock<CR>
 
+" ale
+let g:ale_fixers = {
+\ '*': ['remove_trailing_lines', 'trim_whitespace'],
+\ 'javascript': ['prettier'],
+\ 'typescript': ['prettier'],
+\ 'css': ['prettier'],
+\}
+nnoremap <leader>l :ALEFix<CR>
+
 " markdown
 let g:vim_markdown_folding_disabled=1
 
 " emmet
 let g:user_emmet_leader_key = '<leader>m'
 
-" temp solution for prettier single-quote issue
-cnoremap ps Prettier<CR>:%s/"/'/g<CR>gg
 
 " ==========
 " Features
