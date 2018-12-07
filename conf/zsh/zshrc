@@ -24,3 +24,5 @@ export SHELLRC=$(readlink ~/.zshrc)
 export NEEDLE_HOME=${SHELLRC%/conf*}
 PLUGINS=$NEEDLE_HOME/plugin/load.sh
 [ -f "$PLUGINS" ] && source "$PLUGINS"
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH="/usr/local/lib/ruby/gems/2.5.0/bin:$PATH"
