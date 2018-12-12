@@ -43,7 +43,6 @@ Plug 'mattn/emmet-vim'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'leafgarland/typescript-vim'
-" Plug 'peitalin/vim-jsx-typescript'
 
 call plug#end()
 
@@ -74,11 +73,15 @@ noremap <leader>c :TComment<CR>
 noremap <leader>b :TCommentBlock<CR>
 
 " ale
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_save = 1
 let g:ale_fixers = {
 \ '*': ['remove_trailing_lines', 'trim_whitespace'],
 \ 'javascript': ['prettier'],
 \ 'typescript': ['prettier'],
 \ 'css': ['prettier'],
+\ 'less': ['prettier'],
+\ 'json': ['prettier'],
 \}
 nnoremap <leader>l :ALEFix<CR>
 
