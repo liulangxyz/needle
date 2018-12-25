@@ -41,11 +41,7 @@ git_reset() {
 
 # display branch using fzf
 git_branch_fzf() {
-  local current_dir=$(pwd)
-  cd .git/refs/heads
-  local branch=$(find * -type f | fzf)
-  cd "$current_dir"
-  echo $branch
+  git for-each-ref --format="%(refname:lstrip=2)" "refs/heads" | fzf
 }
 
 # checkout branch using fzf
