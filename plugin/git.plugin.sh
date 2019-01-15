@@ -40,16 +40,16 @@ git_reset() {
 }
 
 # display branch using fzf
-git_branch_fzf() {
+fgb() {
   git for-each-ref --format="%(refname:lstrip=2)" "refs/heads" | fzf
 }
 
 # checkout branch using fzf
-git_checkout_branch_fzf() {
-  git checkout $(git_branch_fzf)
+fgc() {
+  git checkout $(fgb)
 }
 
 # delete branch using fzf
-git_branch_delete_fzf() {
-  git branch -D $(git_branch_fzf)
+fgbd() {
+  git branch -D $(fgb)
 }
