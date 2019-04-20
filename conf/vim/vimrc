@@ -56,6 +56,7 @@ set laststatus=2
 
 " nerdtree
 nnoremap <leader>r :NERDTreeFind<CR>
+nnoremap <leader>n :NERDTreeClose<CR>
 
 " easy motion
 let g:EasyMotion_do_mapping = 0
@@ -131,7 +132,8 @@ set smarttab
 " line setting
 set number
 set cursorline
-set colorcolumn=79
+set colorcolumn=120
+set nowrap
 
 " indent
 set autoindent
