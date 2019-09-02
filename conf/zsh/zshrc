@@ -19,8 +19,5 @@ plugins=(
 # init oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
-# load plugins
-export SHELLRC=$(readlink ~/.zshrc)
-export NEEDLE_HOME=${SHELLRC%/conf*}
-PLUGINS=$NEEDLE_HOME/plugin/load.sh
-[ -f "$PLUGINS" ] && source "$PLUGINS"
+# load custom plugin
+[ -f "~/.needle/plugin.sh" ] && source "~/.needle/plugin.sh"

@@ -18,5 +18,5 @@ fi
 echo "==> install needle to $TARGET_DIR"
 git clone https://github.com/kkninjae/needle.git "$TARGET_DIR"
 
-echo "==> install all packages"
+echo "==> setup configs"
 "$TARGET_DIR/needle.sh"
