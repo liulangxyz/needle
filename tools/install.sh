@@ -19,4 +19,7 @@ echo "==> install needle to $TARGET_DIR"
 git clone https://github.com/kkninjae/needle.git "$TARGET_DIR"
 
 echo "==> setup configs"
-"$TARGET_DIR/needle.sh"
+cd "$TARGET_DIR"
+# have to execute under needle directory since configs rely on this relative file path
+sh ./needle.sh
+popd
