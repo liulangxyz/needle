@@ -19,5 +19,5 @@ plugins=(
 # init oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
-# load custom plugin
-[ -f "~/.needle/plugin.sh" ] && source "~/.needle/plugin.sh"
+# load custom plugin from needle
+[ -f ~/.needle/plugin.sh ] && source ~/.needle/plugin.sh
