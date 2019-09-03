@@ -60,15 +60,8 @@ export FZF_DEFAULT_COMMAND='fd --type f'
 # alias
 ########################################
 # files
-alias vigitignore="vi ~/.gitignore"
-alias vizshrc="vi ~/.zshrc && source $SHELLRC"
+alias vizshrc="vi ~/.zshrc && source ~/.zshrc"
 alias vitmuxconf="vi ~/.tmux.conf && tmux source ~/.tmux.conf"
-
-# convenient
-[ ! -f "~/.needle/custom/monkey.md" ] && touch "~/.needle/custom/monkey.md"
-alias vimk="vi ~/.needle/custom/monkey.md"
-[ ! -f "~/.needle/custom/todo.md" ] && touch "~/.needle/custom/todo.md"
-alias vitodo="vi ~/.needle/custom/todo.md"
 
 # directories
 alias mk="cd ~/Documents"
