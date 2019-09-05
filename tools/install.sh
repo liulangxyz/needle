@@ -2,6 +2,7 @@
 
 set -e
 
+CURR_DIR="$PWD"
 TARGET_DIR=~/.needle
 
 if [ -d "$TARGET_DIR" ]; then
@@ -19,4 +20,4 @@ git clone https://github.com/kkninjae/needle.git "$TARGET_DIR"
 cd "$TARGET_DIR"
 # have to execute under needle directory since configs rely on this relative file path
 sh ./needle.sh
-popd
+cd "$CURR_DIR"
