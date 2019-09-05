@@ -10,6 +10,18 @@ info() {
   echo $'\e[1;32m'"[NEEDLE]"$'\e[0m' "${@:1}"
 }
 
+# $1 brew
+brewinstall() {
+  info "brew install $1"
+  brew install "$1"
+}
+
+# $1 source
+# $2 target
+symlink() {
+  info "symlink $2"
+  ln -fsv "$1" "$2"
+}
 
 ########################################
 # init
@@ -30,18 +42,18 @@ fi
 ########################################
 # basic stuff
 ########################################
-# update brews
+info "update brews"
 brew update
 
-# upgrade existed brews
+info "upgrade existed brews"
 brew upgrade
 
-brew install cmake
-brew install fzf
-brew install fd
-brew install ag
-brew install youtube-dl
-brew install httpie
+brewinstall cmake
+brewinstall fzf
+brewinstall fd
+brewinstall ag
+brewinstall youtube-dl
+brewinstall httpie
 
 
 ########################################
@@ -51,15 +63,12 @@ brew install httpie
 brew install git
 
 # gitignore
-if [[ ! -h ~/.gitignore ]]; then
-  info "config gitignore"
-  ln -fsv "$pwd"/conf/git/gitignore ~/.gitignore
-fi
+symlink "$PWD"/conf/git/gitignore ~/.gitignore
 
 # gitconfig
 if [[ ! -f ~/.gitconfig ]]; then
   info "config gitconfig"
-  cp -v "$pwd"/conf/git/gitconfig.template ~/.gitconfig
+  cp -v "$PWD"/conf/git/gitconfig.template ~/.gitconfig
 
   # setup user name and email
   read -r -p "Your name: " name
@@ -90,11 +99,8 @@ fi
 brew install python3
 
 # pip
-if [[ ! -h ~/.pip/pip.conf ]]; then
-  info "config pip.conf"
-  [[ ! -d ~/.pip ]] && mkdir ~/.pip
-  ln -fsv "$pwd"/conf/pip/pip.conf ~/.pip/pip.conf
-fi
+[[ ! -d ~/.pip ]] && mkdir ~/.pip
+symlink "$PWD"/conf/pip/pip.conf ~/.pip/pip.conf
 
 
 ########################################
@@ -103,10 +109,8 @@ fi
 brew install tmux
 brew install reattach-to-user-namespace
 
-if [ ! -f ~/.tmux.conf ]; then
-  info "config tmux.conf"
-  ln -fsv "$pwd"/conf/tmux/tmux.conf ~/.tmux.conf
-fi
+# tmux.conf
+symlink "$PWD"/conf/tmux/tmux.conf ~/.tmux.conf
 
 
 ########################################
@@ -115,10 +119,7 @@ fi
 brew install vim
 
 # vimrc
-if [[ ! -h ~/.vimrc ]]; then
-  info "config vimrc"
-  ln -fsv "$pwd"/conf/vim/vimrc ~/.vimrc
-fi
+symlink "$PWD"/conf/vim/vimrc ~/.vimrc
 
 # install plugin manager
 if [[ ! -f ~/.vim/autoload/plug.vim ]]; then
@@ -156,11 +157,8 @@ fi
 # zsh theme
 if [[ ! -f ~/.oh-my-zsh/custom/themes/simple.zsh-theme ]]; then
   info "install simple.zsh-theme"
-  cp -v "$pwd"/conf/zsh/simple.zsh-theme ~/.oh-my-zsh/custom/themes/simple.zsh-theme
+  cp -v "$PWD"/conf/zsh/simple.zsh-theme ~/.oh-my-zsh/custom/themes/simple.zsh-theme
 fi
 
 # zshrc
-if [[ ! -h ~/.zshrc ]]; then
-  info "config zshrc"
-  ln -fsv "$pwd"/conf/zsh/zshr ~/.zshrc
-fi
+symlink "$PWD"/conf/zsh/zshrc ~/.zshrc
