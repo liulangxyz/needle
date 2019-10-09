@@ -98,6 +98,7 @@ fi
 # python
 ########################################
 brewinstall python3
+brewinstall pipenv
 
 # pip
 [[ ! -d ~/.pip ]] && mkdir ~/.pip
