@@ -9,11 +9,12 @@ DISABLE_AUTO_TITLE="true"
 
 # plugins
 plugins=(
-  git
-  tmux
-  pip
   docker
+  git
+  mvn
   npm
+  pip
+  tmux
 )
 
 # init oh-my-zsh
