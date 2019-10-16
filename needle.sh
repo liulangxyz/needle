@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# add following line to shell profile to load plugins
-#
-# [ -f "~/.needle/plugin.sh" ] && source "~/.needle/plugin.sh"
-#
-
 ########################################
 # common settings
 ########################################
