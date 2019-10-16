@@ -7,7 +7,7 @@ TARGET_DIR=~/.needle
 
 if [ -d "$TARGET_DIR" ]; then
   echo "Looks needle is already installed."
-  echo "Backup $TARGET_DIR to somewhere else first and then re-execute."
+  echo "To re-install needle, you need to delete ${TARGET_DIR} first."
   exit 1
 fi
 

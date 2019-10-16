@@ -13,7 +13,6 @@ plugins=(
   git
   mvn
   npm
-  pip
   tmux
 )
 

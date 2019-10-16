@@ -1,13 +1,16 @@
 #!/bin/bash
 
-set -e
-
 ########################################
 # utils
 ########################################
-# output string in green
+# $1: message
 info() {
   echo $'\e[1;32m'"[NEEDLE]"$'\e[0m' $*
+}
+
+# $!: binary
+exists() {
+  command -v "$1" 1>/dev/null 2>&1
 }
 
 # $1: brew
@@ -27,13 +30,13 @@ symlink() {
 # init
 ########################################
 # install developer command line tools if not
-if [[ -z $(xcode-select -p) ]]; then
+if ! exists xcode-select || [[ -z $(xcode-select -p) ]]; then
   info "install xcode command line tools"
   xcode-select --install
 fi
 
 # install homebrew if not
-if ! command -v brew 1>/dev/null 2>&1; then
+if ! exists brew; then
   info "install homebrew"
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
@@ -52,116 +55,13 @@ brewinstall cmake
 brewinstall fzf
 brewinstall fd
 brewinstall ag
-brewinstall youtube-dl
 brewinstall httpie
+brewinstall youtube-dl
 
 
 ########################################
-# git
+# sewing
 ########################################
-# install latest git
-brewinstall git
-
-# gitignore
-symlink "$PWD"/conf/git/gitignore ~/.gitignore
-
-# gitconfig
-if [[ ! -f ~/.gitconfig ]]; then
-  info "config gitconfig"
-  cp -v "$PWD"/conf/git/gitconfig.template ~/.gitconfig
-
-  # setup user name and email
-  read -r -p "Your name: " name
-  git config --global user.name "$name"
-  read -r -p "Your email: " email
-  git config --global user.email "$email"
-fi
-
-
-########################################
-# node
-########################################
-brewinstall node
-
-# node version manager
-if [ ! -s ~/.nvm/nvm.sh ]; then
-  info "install node version manager"
-  git clone https://github.com/creationix/nvm.git ~/.nvm
-  local CURR_DIR=$PWD
-  cd ~/.nvm
-  git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
-  cd "$CURR_DIR"
-fi
-
-
-########################################
-# python
-########################################
-brewinstall python3
-brewinstall pipenv
-
-# pip
-[[ ! -d ~/.pip ]] && mkdir ~/.pip
-symlink "$PWD"/conf/pip/pip.conf ~/.pip/pip.conf
-
-
-########################################
-# tmux
-########################################
-brewinstall tmux
-brewinstall reattach-to-user-namespace
-
-# tmux.conf
-symlink "$PWD"/conf/tmux/tmux.conf ~/.tmux.conf
-
-
-########################################
-# vim
-########################################
-brewinstall vim
-
-# vimrc
-symlink "$PWD"/conf/vim/vimrc ~/.vimrc
-
-# install plugin manager
-if [[ ! -f ~/.vim/autoload/plug.vim ]]; then
-  info "install plug.vim, a vim plugin manager"
-  curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-fi
-
-info "config vim plugins"
-read -r -p "do you want to install vim plugins (y/n): " ans
-if [[ $ans = 'y' ]]; then
-  vim +PlugInstall +qall
-fi
-
-read -r -p "do you want to compile YouCompleteMe (y/n): " ans
-if [[ $ans = 'y' ]]; then
-  python3 ~/.vim/plug/YouCompleteMe/install.py --clang-completer
-fi
-
-# override default vi
-if [[ -f /usr/local/bin/vim ]]; then
-  symlink /usr/local/bin/vim /usr/local/bin/vi
-fi
-
-
-########################################
-# zsh
-########################################
-brewinstall zsh
-
-# oh my zsh
-if [[ ! -d ~/.oh-my-zsh ]]; then
-  info "install oh-my-zsh"
-  /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-fi
-
-# zsh theme
-if [[ ! -f ~/.oh-my-zsh/custom/themes/simple.zsh-theme ]]; then
-  info "install simple.zsh-theme"
-  cp -v "$PWD"/conf/zsh/simple.zsh-theme ~/.oh-my-zsh/custom/themes/simple.zsh-theme
-fi
-
-# zshrc
-symlink "$PWD"/conf/zsh/zshrc ~/.zshrc
+for sew in $(find ./thread -name "sew.sh" -type f -print | sort); do
+  source "$sew"
+done

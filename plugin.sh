@@ -74,9 +74,6 @@ alias hidefiles='defaults write com.apple.finder AppleShowAllFiles NO; killall F
 ########################################
 # custom
 ########################################
-if ls ~/.needle/custom/ | grep -Eqs ".*\.plugin\.sh"; then
-  unset plugin
-  for plugin in ~/.needle/custom/*.plugin.sh; do
-    [ -f "$plugin" ] && source "$plugin"
-  done
-fi
+for plugin in $(find ~/.needle/custom -name "*.plugin.sh" -type f -print | sort); do
+  source "$plugin"
+done
