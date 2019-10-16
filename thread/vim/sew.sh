@@ -1,7 +1,7 @@
 brewinstall vim
 
 # vimrc
-symlink "$PWD"/thread/vim/vimrc ~/.vimrc
+symlink "$NEEDLE"/thread/vim/vimrc ~/.vimrc
 
 # install plugin manager
 if [[ ! -f ~/.vim/autoload/plug.vim ]]; then

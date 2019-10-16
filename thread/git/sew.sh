@@ -1,12 +1,12 @@
 brewinstall git
 
 # gitignore
-symlink "$PWD"/thread/git/gitignore ~/.gitignore
+symlink "$NEEDLE"/thread/git/gitignore ~/.gitignore
 
 # gitconfig
 if [[ ! -f ~/.gitconfig ]]; then
   info "config gitconfig"
-  cp -v "$PWD"/thread/git/gitconfig.template ~/.gitconfig
+  cp -v "$NEEDLE"/thread/git/gitconfig.template ~/.gitconfig
 
   # setup user name and email
   read -r -p "Your name: " name

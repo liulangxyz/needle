@@ -2,12 +2,12 @@
 
 set -e
 
-TARGET_DIR=~/.needle
+NEEDLE=~/.needle
 
-if [ ! -d "$TARGET_DIR" ]; then
+if [[ ! -d "$NEEDLE" ]]; then
   echo "needle is not installed"
   exit 1
 fi
 
-echo "==> delete needle from $TARGET_DIR"
-rm -rf "$TARGET_DIR"
+echo "==> delete needle from $NEEDLE"
+rm -rf "$NEEDLE"

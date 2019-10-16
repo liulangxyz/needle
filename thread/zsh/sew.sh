@@ -9,8 +9,8 @@ fi
 # zsh theme
 if [[ ! -f ~/.oh-my-zsh/custom/themes/simple.zsh-theme ]]; then
   info "install simple.zsh-theme"
-  cp -v "$PWD"/thread/zsh/simple.zsh-theme ~/.oh-my-zsh/custom/themes/simple.zsh-theme
+  cp -v "$NEEDLE"/thread/zsh/simple.zsh-theme ~/.oh-my-zsh/custom/themes/simple.zsh-theme
 fi
 
 # zshrc
-symlink "$PWD"/thread/zsh/zshrc ~/.zshrc
+symlink "$NEEDLE"/thread/zsh/zshrc ~/.zshrc
