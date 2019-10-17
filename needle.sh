@@ -15,6 +15,6 @@ for plugin in $(find ~/.needle/thread -name "plugin.sh" -type f -print | sort); 
 done
 
 # load custom plugins
-for plugin in $(find ~/.needle/custom -name "*.plugin.sh" -type f -print | sort); do
+for plugin in $(find ~/.needle/custom -name "*.plugin.sh" -print | sort); do
   source "$plugin"
 done
