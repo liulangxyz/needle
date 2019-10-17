@@ -1,5 +1,5 @@
-# checkout all modified files at one go
-git_checkout() {
+# checkout bulk
+gcb() {
   for f in $(git status -s | grep -E -v "\?\?" | cut -d ' ' -f 3); do
     git checkout -- "$f"
   done
@@ -11,7 +11,7 @@ git_checkout() {
 
 # display branch using fzf
 fgb() {
-  git for-each-ref --format="%(refname:lstrip=2)" "refs/heads" | fzf
+  git for-each-ref --format="%(refname:lstrip=2)" "refs/heads" | fzf -m
 }
 
 # checkout branch using fzf
