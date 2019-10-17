@@ -1,5 +1,5 @@
 # checkout bulk
-gcb() {
+git_discard() {
   for f in $(git status -s | grep -E -v "\?\?" | cut -d ' ' -f 3); do
     git checkout -- "$f"
   done
@@ -10,16 +10,16 @@ gcb() {
 }
 
 # display branch using fzf
-fgb() {
+fzf_git_branch() {
   git for-each-ref --format="%(refname:lstrip=2)" "refs/heads" | fzf -m
 }
 
 # checkout branch using fzf
-fgc() {
+fzf_git_checkout() {
   git checkout $(fgb)
 }
 
 # delete branch using fzf
-fgbd() {
+fzf_git_branch_delete() {
   git branch -D $(fgb)
 }
