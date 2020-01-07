@@ -2,11 +2,6 @@
 
 Needle is a tiny framework to manage dotfiles and binary installations in a single place.
 
-## How-to
-
-TBD
-
-
 ## Installation
 
 Install

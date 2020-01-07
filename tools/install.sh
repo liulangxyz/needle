@@ -96,4 +96,4 @@ main() {
 export NEEDLE=~/.needle
 export NEEDLE_REPO=https://github.com/kkninjae/needle.git
 
-main
+main "$@"

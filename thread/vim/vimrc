@@ -39,7 +39,7 @@ Plug 'jremmen/vim-ripgrep'
 Plug 'sheerun/vim-polyglot'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tomtom/tcomment_vim'
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 
 call plug#end()
 
