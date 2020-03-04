@@ -68,7 +68,7 @@ sewing() {
   done
 }
 
-main() {
+install() {
   setup_color
   check_precondition
   setup_needle
@@ -88,6 +88,27 @@ main() {
 
   sewing
   info "Needle is all set."
+}
+
+uninstall() {
+  setup_color
+
+  if [[ ! -d "$NEEDLE" ]]; then
+    error "needle is not installed"
+    exit 1
+  fi
+
+  info "delete needle from $NEEDLE"
+  rm -rf "$NEEDLE"
+  info "deleted, see you next time."
+}
+
+main() {
+  if [[ "$1" == "--uninstall" ]]; then
+    uninstall
+  else
+    install
+  fi
 }
 
 ########################################
