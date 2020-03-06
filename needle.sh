@@ -1,15 +1,9 @@
 #!/bin/bash
 
 ########################################
-# common settings
+# utilities
 ########################################
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-
-########################################
-# load plugins
-########################################
-# git
+# discard all changes including added new files
 git_discard() {
   for f in $(git status -s | grep -E -v "\?\?" | cut -d ' ' -f 3); do
     git checkout -- "$f"
@@ -20,41 +14,50 @@ git_discard() {
   done
 }
 
-fzf_git_branch() {
+# get git branch name by using fzf
+fgb() {
   git for-each-ref --format="%(refname:lstrip=2)" "refs/heads" | fzf -m
 }
 
-fzf_git_checkout() {
-  git checkout $(fzf_git_branch)
+# checkout branch by using fzf
+fgc() {
+  git checkout $(fgb)
 }
 
-fzf_git_branch_delete() {
-  git branch -D $(fzf_git_branch)
+# delete branch(es) by using fzf
+fgbd() {
+  git branch -D $(fgb)
 }
 
-# node version manager
+# load node version manager
 loadnvm() {
   export NVM_DIR="$HOME/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
   [ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"
 }
 
+########################################
+# settings
+########################################
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
 # fzf
 export FZF_DEFAULT_COMMAND='fd --type f'
 
-# python
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
-
 # direnv
 eval "$(direnv hook zsh)"
+
+# pipenv shell completion
+eval "$(pipenv --completion)"
 
 ########################################
 # alias
 ########################################
 # files
-alias vineedle="vi ~/.needle/needle.sh"
-alias vitmuxconf="vi ~/.tmux.conf && tmux source ~/.tmux.conf"
+alias vineedle="vi ~/.needle/needle.sh && source ~/.zshrc"
 alias vizshrc="vi ~/.zshrc && source ~/.zshrc"
+alias vitmux="vi ~/.tmux.conf && tmux source ~/.tmux.conf"
 
 # directories
 alias mk="cd ~/Documents"

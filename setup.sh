@@ -85,6 +85,7 @@ install() {
   brewinstall ag
   brewinstall httpie
   brewinstall youtube-dl
+  brewinstall direnv
 
   sewing
   info "Needle is all set."
@@ -117,4 +118,4 @@ main() {
 export NEEDLE=~/.needle
 export NEEDLE_REPO=https://github.com/kkninjae/needle.git
 
-main "$@"
+main "$0"

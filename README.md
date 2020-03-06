@@ -7,14 +7,14 @@ Needle is a tiny framework to manage dotfiles and binary installations in a sing
 Install
 
 ```sh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/kkninjae/needle/master/tools/bootstrap.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/kkninjae/needle/master/setup.sh)"
 ```
 
 
 Uninstall
 
 ```sh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/kkninjae/needle/master/tools/bootstrap.sh)" bye --uninstall
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/kkninjae/needle/master/setup.sh)" --uninstall
 ```
 
 
