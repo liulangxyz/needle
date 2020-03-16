@@ -53,6 +53,7 @@ set laststatus=2
 
 " nerdtree
 nnoremap <leader>n :NERDTreeToggle<CR>
+nnoremap <leader>r :NERDTreeFind<CR>
 
 " easy motion
 let g:EasyMotion_do_mapping = 0
