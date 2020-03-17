@@ -71,7 +71,10 @@ sewing() {
 install() {
   setup_color
   check_precondition
-  setup_needle
+
+  if [[ -z "$SETUP_NEEDLE" ]]; then
+    setup_needle
+  fi
 
   info "update brews"
   brew update

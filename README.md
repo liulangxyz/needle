@@ -25,6 +25,13 @@ Add following line to `zshrc` or `bashrc` to load utilities in [needle.sh](needl
 ```
 
 
+Continue to install when needle is already downloaded
+
+```sh
+cd ~/.needle && SETUP_NEEDLE=no bash setup.sh
+```
+
+
 ## Customization
 
 A shell compatible file with suffix `.plugin.sh` in `custom` directory will be loaded into your shell environment.
