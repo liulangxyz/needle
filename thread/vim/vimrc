@@ -61,6 +61,9 @@ nmap <leader>w <Plug>(easymotion-overwin-f)
 " tabular
 vnoremap <leader>t :Tabularize /
 
+" ripgrep
+noremap <leader>f :Rg<SPACE>
+
 " t_comment
 noremap <leader>c :TComment<CR>
 noremap <leader>b :TCommentBlock<CR>
@@ -174,6 +177,9 @@ nnoremap <leader>ev :vs $MYVIMRC<CR>
 
 " set working directory
 nnoremap <leader>. :lcd %:p:h<CR>:pwd<CR>
+
+" syntax highlight fix
+nnoremap <leader>s :syntax sync fromstart<CR>
 
 " navigate among windows
 nnoremap ] <C-w>
