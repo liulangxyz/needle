@@ -85,7 +85,7 @@ install() {
   brewinstall cmake
   brewinstall fzf
   brewinstall fd
-  brewinstall ag
+  brewinstall ripgrep
   brewinstall httpie
   brewinstall youtube-dl
   brewinstall direnv
