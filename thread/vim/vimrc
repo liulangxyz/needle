@@ -49,6 +49,7 @@ call plug#end()
 set background=dark
 colorscheme PaperColor
 set laststatus=2
+let g:airline#extensions#hunks#enabled = 0
 
 " nerdtree
 nnoremap <leader>n :NERDTreeToggle<CR>
