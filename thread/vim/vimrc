@@ -35,21 +35,19 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
 Plug 'junegunn/fzf.vim'
 Plug 'jremmen/vim-ripgrep'
-Plug 'airblade/vim-gitgutter'
 
 " code
 Plug 'sheerun/vim-polyglot'
 Plug 'martinda/Jenkinsfile-vim-syntax'
 Plug 'tomtom/tcomment_vim'
 Plug 'mattn/emmet-vim'
+Plug 'airblade/vim-gitgutter'
 
 call plug#end()
 
 " theme
 set background=dark
 colorscheme PaperColor
-
-" status line
 set laststatus=2
 
 " nerdtree
@@ -69,16 +67,16 @@ noremap <leader>l :FZF<CR>
 " ripgrep
 noremap <leader>f :Rg<SPACE>
 
-" vim-gitgutter
-set updatetime=100
-nmap <leader>g <Plug>(GitGutterPreviewHunk)
-
 " t_comment
 noremap <leader>c :TComment<CR>
 noremap <leader>b :TCommentBlock<CR>
 
 " emment
 let g:user_emmet_expandabbr_key = '<leader>m'
+
+" vim-gitgutter
+set updatetime=100
+nmap <leader>g <Plug>(GitGutterPreviewHunk)
 
 " ==========
 " Features
