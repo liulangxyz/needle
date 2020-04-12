@@ -31,8 +31,8 @@ Plug 'tpope/vim-repeat'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'godlygeek/tabular'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
+Plug 'neoclide/coc.nvim'
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'jremmen/vim-ripgrep'
 
