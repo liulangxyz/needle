@@ -1,0 +1,177 @@
+#!/usr/bin/env bash
+
+helper() {
+  echo
+  echo "DESCRIPTION"
+  echo "  geba, a simple utility for managing secrets."
+  echo
+  echo "USAGE"
+  echo "  Secrets are saved in plain text files which reside in a directory on user machine."
+  echo "  Before using geba, user needs to export the directory in PATH_GEBA variable."
+  echo "  When geba adds any secret, the secret file will be saved that directory."
+  echo "  User also needs to export encode/decode method in ENCODE_GEBA/DECODE_GEBA variables."
+  echo "  geba will use those two methods to encode/decode user's secrets so secret file only contains salted secret."
+  echo "  geba should be called in the terminal, then geba will read the secret file selected by user through fzf."
+  echo "  Then, geba will parse the secret and save the secret in clipboard so user can paste it later for use."
+  echo
+  echo "  Filename of the secret file will be the identify of that secret."
+  echo "  First line in the secret file will be used by geba."
+  echo "  The content of the first line needs to be in one of the following formats."
+  echo
+  echo "    [secret]                # whole line is the secret without salted."
+  echo "    [secret]:[field]        # content before colon is the secret without salted."
+  echo "    0:[secret]:[field]      # content after first colon before second colon is the secret without salted,"
+  echo "                            # geba will salt the secret and update zero to one after first read the secret."
+  echo "    1:[secret]:[field]      # content after first colon before second colon is the salted secret."
+  echo "    2:[secret]:[field]      # content after first colon before second colon is the secret without salted."
+  echo "                            # geba will not salt the secret when secret is written in this format."
+  echo
+  echo "OPTIONS"
+  echo "  --add [filename] Add a secret. Filename is the filename of secret file which resides in the directory"
+  echo "                   geba is called. Secret will be salted and secret file will be moved to PATH_GEBA directory."
+  echo "                   If the given file does not exist, geba will create a file with given filename."
+  echo
+  echo "  --edit           Edit a added secret file."
+  echo
+  echo "  --salt           Salt secret in any added secret file if it is not salted yet."
+  echo
+}
+
+ensalt() {
+  bash -c "echo \"$1\" | $ENCODE_GEBA"
+}
+
+desalt() {
+  bash -c "echo \"$1\" | $DECODE_GEBA"
+}
+
+readsecret() {
+  # enforce file format
+  # add initial flag:0 if no flag field found
+  ! head -n 1 "$1" | grep -q -e '^[0-2]:' && {
+    sed -i '' -e '1 s/^/0:/' "$1"
+  }
+
+  local flag=$(head -n 1 "$1" | cut -d ':' -f 1)
+  local secret=$(head -n 1 "$1" | cut -d ':' -f 2)
+  [[ -z "$secret" ]] && {
+    secret="$flag"
+    flag=0
+  }
+
+  [[ "$flag" = '0' ]] && {
+    local saltedsecret=$(ensalt "$secret")
+    sed -i '' -e "1 s/0:${secret}/1:${saltedsecret}/" "$1"
+  }
+
+  [[ "$flag" = '1' ]] && {
+    secret=$(desalt "$secret")
+  }
+
+  [[ "$2" = 'true' ]] && { # copy to clipboard
+    echo -n "$secret" | pbcopy
+  }
+}
+
+get() {
+  local filename=$(ls -l -1 "$PATH_GEBA" | fzf)
+  [[ -z "$filename" ]] && {
+    exit 1
+  }
+
+  local secretfile="${PATH_GEBA}/${filename}"
+  [[ ! -s "$secretfile" ]] && {
+    echo "Error: secret: ${filename} has no content."
+    exit 1
+  }
+
+  readsecret "$secretfile" 'true'
+}
+
+add() {
+  local secretfile="$1"
+  local filename=$(basename "$1")
+  local directory=$(dirname "$1")
+
+  ls "${PATH_GEBA}/${filename}" 1>/dev/null 2>&1 && {
+    echo "Error: duplicate secret: ${filename} found, please use a different filename."
+    exit 1
+  }
+
+  [[ ! -f "$secretfile" ]] && { # create a temp file for user if file does not exist
+    secretfile="${directory}/.${filename}"
+    vi "$secretfile"
+  }
+
+  [[ ! -s "$secretfile" ]] && {
+    echo "Error: secret: ${filename} does not exist or has no content."
+    [[ "$secretfile" != "$1" ]] && [[ -f "$secretfile" ]] && {
+      rm -rf "$secretfile"
+    }
+    exit 1
+  }
+
+  readsecret "$secretfile"
+  mv "$secretfile" "${PATH_GEBA}/${filename}"
+  echo "A new secret: ${filename} added."
+}
+
+edit() {
+  local filename=$(ls -l -1 "$PATH_GEBA" | fzf)
+  [[ -z "$filename" ]] && {
+    echo 'Abort edit since no secret was selected.'
+    exit 0
+  }
+
+  local secretfile="${PATH_GEBA}/${filename}"
+  vi "${secretfile}"
+}
+
+delete() {
+  local filename=$(ls -l -1 "$PATH_GEBA" | fzf)
+  [[ -z "$filename" ]] && {
+    exit 1
+  }
+  local secretfile="${PATH_GEBA}/${filename}"
+  rm -rf "$secretfile"
+  echo "A secret: ${filename} deleted."
+}
+
+salt() {
+  for filename in $(ls -l -1 "$PATH_GEBA"); do
+    local secretfile="${PATH_GEBA}/${filename}"
+    local flag=$(head -n 1 "$secretfile" | cut -d ':' -f 1)
+    [[ "$flag" = '0' ]] && {
+      echo "salt => ${filename}"
+      readsecret "$secretfile"
+    }
+  done
+  echo "All secrets are salted."
+}
+
+main() {
+  [[ "$1" = '--help' ]] && {
+    helper
+    exit 0
+  }
+
+  ( [[ -z "$PATH_GEBA" ]] || [[ -z "$ENCODE_GEBA" ]] || [[ -z "$DECODE_GEBA" ]] ) && {
+    echo "Error: make sure PATH_GEBA, ENCODE_GEBA, DECODE_GEBA are properly set.";
+    echo "Check help: geba --help"
+    exit 1
+  }
+
+  [[ -z "$1" ]] && {
+    get; exit 0
+  }
+
+  case $1 in
+    --add ) shift; add "$1";;
+    --delete ) shift; delete;;
+    --edit ) shift; edit;;
+    --salt ) shift; salt;;
+    * ) shift; helper; exit 1;;
+  esac
+}
+
+main $*
