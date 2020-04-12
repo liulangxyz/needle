@@ -42,6 +42,9 @@ loadnvm() {
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
+# add needle bin
+export PATH=$PATH:~/.needle/bin
+
 # fzf
 export FZF_DEFAULT_COMMAND='fd --type f'
 
