@@ -6,34 +6,37 @@ helper() {
   echo "  geba, a simple utility for managing secrets."
   echo
   echo "USAGE"
-  echo "  Secrets are saved in plain text files which reside in a directory on user machine."
-  echo "  Before using geba, user needs to export the directory in PATH_GEBA variable."
-  echo "  When geba adds any secret, the secret file will be saved that directory."
+  echo "  Secrets are in a plain text file which is geba's db and resides in a directory on user machine."
+  echo "  Before using geba, user needs to export the file in PATH_GEBA variable."
+  echo "  When geba adds any secret, the secret will be appended as last entry in the file."
   echo "  User also needs to export encode/decode method in ENCODE_GEBA/DECODE_GEBA variables."
-  echo "  geba will use those two methods to encode/decode user's secrets so secret file only contains salted secret."
-  echo "  geba should be called in the terminal, then geba will read the secret file selected by user through fzf."
-  echo "  Then, geba will parse the secret and save the secret in clipboard so user can paste it later for use."
+  echo "  geba will use those two methods to encode/decode user's secrets so that the file only has salted secret."
+  echo "  When geba is called in terminal, geba outputs ids associated with the secret through fzf so user can select."
+  echo "  After user selected an id, geba will decode the salted secret and copy it to clipboard."
+  echo "  Each entry in PATH_GEBA will be in one of the following formats."
   echo
-  echo "  Filename of the secret file will be the identify of that secret."
-  echo "  First line in the secret file will be used by geba."
-  echo "  The content of the first line needs to be in one of the following formats."
-  echo
-  echo "    [secret]                # whole line is the secret without salted."
-  echo "    [secret]:[field]        # content before colon is the secret without salted."
-  echo "    0:[secret]:[field]      # content after first colon before second colon is the secret without salted,"
-  echo "                            # geba will salt the secret and update zero to one after first read the secret."
-  echo "    1:[secret]:[field]      # content after first colon before second colon is the salted secret."
-  echo "    2:[secret]:[field]      # content after first colon before second colon is the secret without salted."
-  echo "                            # geba will not salt the secret when secret is written in this format."
+  echo "    0:[id]:[secret]     # first field is zero, means secret is not salted and will be saled after read."
+  echo "    1:[id]:[secret]     # first field is one, means secret is salted."
+  echo "    2:[id]:[secret]     # first field is two, means secret is not salted and will not be salted either."
   echo
   echo "OPTIONS"
-  echo "  --add [filename] Add a secret. Filename is the filename of secret file which resides in the directory"
-  echo "                   geba is called. Secret will be salted and secret file will be moved to PATH_GEBA directory."
-  echo "                   If the given file does not exist, geba will create a file with given filename."
+  echo "  --add"
+  echo "    pop out a vim window to let user add an entry."
   echo
-  echo "  --edit           Edit a added secret file."
+  echo "  --add-batch [filename]"
+  echo "    add all entries in the file."
   echo
-  echo "  --salt           Salt secret in any added secret file if it is not salted yet."
+  echo "  --delete"
+  echo "    pop out an id list to let user delete the entry with selected id."
+  echo
+  echo "  --delete [id]"
+  echo "    delete the entry with given id."
+  echo
+  echo "  --edit"
+  echo "    pop out an id list to let user edit the entry with selected id."
+  echo
+  echo "  --edit [id]"
+  echo "    edit the entry with given id."
   echo
 }
 
@@ -45,108 +48,145 @@ desalt() {
   bash -c "echo \"$1\" | $DECODE_GEBA"
 }
 
-readsecret() {
-  # enforce file format
-  # add initial flag:0 if no flag field found
-  ! head -n 1 "$1" | grep -q -e '^[0-2]:' && {
-    sed -i '' -e '1 s/^/0:/' "$1"
+getid() {
+  local secretid="$1"
+  [[ -z "$secretid" ]] && secretid=$(sed -E -e 's/^[0-2]:([^:]+):.+/\1/' "$PATH_GEBA" | fzf)
+  [[ -z "$secretid" ]] && {
+    echo "ERROR: empty id."
+    exit 1
+  }
+  ! grep -q -E -e "^[0-2]:${secretid}:.+" "$PATH_GEBA" && {
+    echo "ERROR: id ${secretid} not found."
+    exit 1
+  }
+  echo "${secretid}" > "$TMPFILE"
+}
+
+processtmpfile() {
+  sed -i '' -e '/^[[:space:]]*$/d' "$TMPFILE"
+  [[ ! -s "$TMPFILE" ]] && {
+    echo "ERROR: no content found."
+    exit 1
   }
 
-  local flag=$(head -n 1 "$1" | cut -d ':' -f 1)
-  local secret=$(head -n 1 "$1" | cut -d ':' -f 2)
-  [[ -z "$secret" ]] && {
-    secret="$flag"
-    flag=0
+  sed -i '' -e '/^[0-2]:/! s/^/0:/' "$TMPFILE"
+  grep -q -E -v -e '^[0-2]:[^:]+:[^:]+' "$TMPFILE" && {
+    for line in $(sed -n -E -e '/^[0-2]:[^:]+:[^:]+/! =' "$TMPFILE"); do
+      echo "ERROR: invalid entry detected at line ${line}."
+    done
+    exit 1
   }
 
-  [[ "$flag" = '0' ]] && {
-    local saltedsecret=$(ensalt "$secret")
-    sed -i '' -e "1 s/0:${secret}/1:${saltedsecret}/" "$1"
-  }
+  while IFS= read -r line; do
+    local flag=$(echo "$line" | cut -d ':' -f 1)
+    local secretid=$(echo "$line" | cut -d ':' -f 2)
+    local secret=$(echo "$line" | cut -d ':' -f 3)
+    if [[ "$1" = '--reverse' ]]; then
+      [[ "$flag" = '1' ]] && {
+        local field=$(desalt "$secret")
+        sed -i '' -e "s/1:${secretid}:${secret}/0:${secretid}:${field}/" "$TMPFILE"
+      }
+    else
+      [[ "$flag" = '0' ]] && {
+        local field=$(ensalt "$secret")
+        sed -i '' -e "s/0:${secretid}:${secret}/1:${secretid}:${field}/" "$TMPFILE"
+      }
+    fi
+  done < "$TMPFILE"
+}
 
-  [[ "$flag" = '1' ]] && {
-    secret=$(desalt "$secret")
+edittmpfile() {
+  [[ -s "$TMPFILE" ]] && {
+    local flag=$(head -n 1 "$TMPFILE" | cut -d ':' -f 1)
+    [[ "$flag" = '1' ]] && {
+      local saltedsecret=$(head -n 1 "$TMPFILE" | cut -d ':' -f 3)
+      local secret=$(desalt "$saltedsecret")
+      sed -i '' -E -e "s/1:${saltedsecret}/0:${secret}/" "$TMPFILE"
+    }
   }
-
-  [[ "$2" = 'true' ]] && { # copy to clipboard
-    echo -n "$secret" | pbcopy
-  }
+  vi "$TMPFILE"
 }
 
 get() {
-  local filename=$(ls -l -1 "$PATH_GEBA" | fzf)
-  [[ -z "$filename" ]] && {
+  [[ ! -s "$PATH_GEBA" ]] && {
+    echo "ABORT: no secret found."
+    echo "Use: geba --add to add a secret."
     exit 1
   }
 
-  local secretfile="${PATH_GEBA}/${filename}"
-  [[ ! -s "$secretfile" ]] && {
-    echo "Error: secret: ${filename} has no content."
-    exit 1
-  }
+  getid
+  local secretid=$(head -n 1 "$TMPFILE")
+  local entry=$(sed -n -E -e "/^[0-2]:${secretid}:.+/p" "$PATH_GEBA")
+  echo "$entry" > "$TMPFILE"
 
-  readsecret "$secretfile" 'true'
+  processtmpfile --reverse
+  local secret=$(head -n 1 "$TMPFILE" | cut -d ':' -f 3)
+  cat /dev/null | pbcopy
+  echo -n "$secret" | pbcopy
 }
 
 add() {
-  local secretfile="$1"
-  local filename=$(basename "$1")
-  local directory=$(dirname "$1")
+  edittmpfile
+  processtmpfile
 
-  ls "${PATH_GEBA}/${filename}" 1>/dev/null 2>&1 && {
-    echo "Error: duplicate secret: ${filename} found, please use a different filename."
+  local secretid=$(head -n 1 "$TMPFILE" | cut -d ':' -f 2)
+  if grep -q -E -e "^[0-2]:${secretid}:.+" "$PATH_GEBA"; then
+    echo "ERROR: duplicate id ${secretid}."
+    echo "Use: geba --edit \"${secretid}\" to edit the secret."
     exit 1
-  }
+  fi
 
-  [[ ! -f "$secretfile" ]] && { # create a temp file for user if file does not exist
-    secretfile="${directory}/.${filename}"
-    vi "$secretfile"
-  }
-
-  [[ ! -s "$secretfile" ]] && {
-    echo "Error: secret: ${filename} does not exist or has no content."
-    [[ "$secretfile" != "$1" ]] && [[ -f "$secretfile" ]] && {
-      rm -rf "$secretfile"
-    }
-    exit 1
-  }
-
-  readsecret "$secretfile"
-  mv "$secretfile" "${PATH_GEBA}/${filename}"
-  echo "A new secret: ${filename} added."
+  head -n 1 "$TMPFILE" >> "$PATH_GEBA"
+  echo "ADDED: ${secretid}."
 }
 
-edit() {
-  local filename=$(ls -l -1 "$PATH_GEBA" | fzf)
-  [[ -z "$filename" ]] && {
-    echo 'Abort edit since no secret was selected.'
-    exit 0
+addbatch() {
+  [[ ! -s "$1" ]] && {
+    echo "ERROR: file ${1} not found."
+    exit 1
   }
+  cat "$1" > "$TMPFILE"
+  processtmpfile
 
-  local secretfile="${PATH_GEBA}/${filename}"
-  vi "${secretfile}"
+  while IFS= read -r line; do
+    local secretid=$(echo "$line" | cut -d ':' -f 2)
+    if grep -q -E -e "^[0-2]:${secretid}:.+" "$PATH_GEBA"; then
+      echo "SKIP: duplicate id ${secretid}"
+    else
+      echo "$line" >> "$PATH_GEBA"
+      echo "ADDED: ${secretid}."
+    fi
+  done < "$TMPFILE"
 }
 
 delete() {
-  local filename=$(ls -l -1 "$PATH_GEBA" | fzf)
-  [[ -z "$filename" ]] && {
-    exit 1
-  }
-  local secretfile="${PATH_GEBA}/${filename}"
-  rm -rf "$secretfile"
-  echo "A secret: ${filename} deleted."
+  getid "$1"
+  local secretid=$(head -n 1 "$TMPFILE")
+  sed -i '' -E -e "/^[0-2]:${secretid}:.+/d" "$PATH_GEBA"
+  echo "DELETED: ${secretid}."
 }
 
-salt() {
-  for filename in $(ls -l -1 "$PATH_GEBA"); do
-    local secretfile="${PATH_GEBA}/${filename}"
-    local flag=$(head -n 1 "$secretfile" | cut -d ':' -f 1)
-    [[ "$flag" = '0' ]] && {
-      echo "salt => ${filename}"
-      readsecret "$secretfile"
-    }
-  done
-  echo "All secrets are salted."
+edit() {
+  getid "$1"
+  local secretid=$(head -n 1 "$TMPFILE")
+  local entry=$(sed -n -E -e "/^[0-2]:${secretid}:.+/p" "$PATH_GEBA")
+  echo "$entry" > "$TMPFILE"
+
+  edittmpfile
+  processtmpfile
+
+  local nsecretid=$(head -n 1 "$TMPFILE" | cut -d ':' -f 2)
+  [[ "$secretid" != "$nsecretid" ]] && {
+    echo "ERROR: id change not allowed, ${secretid} => ${nsecretid}."
+    echo "Use: geba --add to add a secret."
+    exit 1
+  }
+
+  local nentry=$(head -n 1 "$TMPFILE")
+  [[ "$entry" != "$nentry" ]] && {
+    sed -i '' -e "s/${entry}/${nentry}/" "$PATH_GEBA"
+    echo "EDITED: ${secretid}"
+  }
 }
 
 main() {
@@ -155,23 +195,35 @@ main() {
     exit 0
   }
 
-  ( [[ -z "$PATH_GEBA" ]] || [[ -z "$ENCODE_GEBA" ]] || [[ -z "$DECODE_GEBA" ]] ) && {
-    echo "Error: make sure PATH_GEBA, ENCODE_GEBA, DECODE_GEBA are properly set.";
-    echo "Check help: geba --help"
+  [[ ! -f "$PATH_GEBA" ]] && {
+    echo "ERROR: variable PATH_GEBA should be pointed to a text file."
+    exit 1
+  }
+
+  ( [[ -z "$ENCODE_GEBA" ]] || [[ -z "$DECODE_GEBA" ]] ) && {
+    echo "ERROR: variable ENCODE_GEBA/DECODE_GEBA are not properly set."
     exit 1
   }
 
   [[ -z "$1" ]] && {
-    get; exit 0
+    get
+    exit 0
   }
 
   case $1 in
-    --add ) shift; add "$1";;
-    --delete ) shift; delete;;
-    --edit ) shift; edit;;
-    --salt ) shift; salt;;
-    * ) shift; helper; exit 1;;
+    --add ) add;;
+    --add-batch ) shift; addbatch "$1";;
+    --delete ) shift; delete "$1";;
+    --edit ) shift; edit "$1";;
+    * ) helper; exit 1;;
   esac
 }
+
+[[ ! -d ~/.geba ]] && mkdir ~/.geba
+TMPFILE=~/.geba/tmp
+touch "$TMPFILE"
+cat /dev/null > "$TMPFILE"
+trap "rm -rf ${TMPFILE}" 0
+trap "rm -rf ${TMPFILE}" 1
 
 main $*
