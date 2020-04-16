@@ -101,7 +101,7 @@ edittmpfile() {
     [[ "$flag" = '1' ]] && {
       local saltedsecret=$(head -n 1 "$TMPFILE" | cut -d ':' -f 3)
       local secret=$(desalt "$saltedsecret")
-      sed -i '' -E -e "s/1:${saltedsecret}/0:${secret}/" "$TMPFILE"
+      sed -i '' -E -e "s/1:([^:]+):${saltedsecret}/0:\1:${secret}/" "$TMPFILE"
     }
   }
   vi "$TMPFILE"
