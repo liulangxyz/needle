@@ -51,9 +51,6 @@ export FZF_DEFAULT_COMMAND='fd --type f'
 # direnv
 eval "$(direnv hook zsh)"
 
-# pipenv shell completion
-eval "$(pipenv --completion)"
-
 ########################################
 # alias
 ########################################
