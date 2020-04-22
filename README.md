@@ -2,37 +2,28 @@
 
 Needle is a tiny tool to manage dotfiles and binary installations for me.
 
-## How to use
+## Installation
 
-Install
+Remotely
 
 ```sh
+# install
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/kkninjae/needle/master/setup.sh)"
-```
-
-
-Uninstall
-
-```sh
+# uninstall
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/kkninjae/needle/master/setup.sh)" --uninstall
 ```
 
 
-Add following line to `zshrc` or `bashrc` to load utilities in [needle.sh](needle.sh)
+Locally
 
 ```sh
-[ -f ~/.needle/needle.sh ] && source ~/.needle/needle.sh
-```
-
-
-Continue to install when needle is already downloaded
-
-```sh
-cd ~/.needle && SETUP_NEEDLE=no bash setup.sh
+$ git clone https://github.com/kkninjae/needle.git ~/.needle
+$ cd ~/.needle
+$ bash setup.sh
 ```
 
 
 ## Customization
 
 A shell compatible file with suffix `.plugin.sh` in `custom` directory will be loaded into your shell environment.
-A good use case of using customization is to load the shell configurations you don't want to store them in git.
+A good use case of using customization is to load the shell configurations you don't want to save them in git.

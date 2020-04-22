@@ -44,22 +44,18 @@ check_precondition() {
 }
 
 setup_needle() {
-  command_exists git || {
-    error "git not found"
-    exit 1
-  }
+  if [[ ! -d "$NEEDLE" ]]; then
+    if ! command_exists git; then
+      error "git not found"
+      exit 1
+    fi
 
-  [[ -d "$NEEDLE" ]] && {
-    info "Looks needle is already installed."
-    info "To re-install needle, you need to delete ${NEEDLE} first."
-    exit 1
-  }
-
-  info "Cloning Needle"
-  git clone "$NEEDLE_REPO" "$NEEDLE" || {
-    error "clone failed"
-    exit 1
-  }
+    info "Cloning Needle"
+    git clone "$NEEDLE_REPO" "$NEEDLE" || {
+      error "clone failed"
+      exit 1
+    }
+  fi
 }
 
 sewing() {
@@ -71,10 +67,7 @@ sewing() {
 install() {
   setup_color
   check_precondition
-
-  if [[ -z "$SETUP_NEEDLE" ]]; then
-    setup_needle
-  fi
+  setup_needle
 
   info "update brews"
   brew update
