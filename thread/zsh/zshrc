@@ -9,8 +9,10 @@ DISABLE_AUTO_TITLE="true"
 
 # plugins
 plugins=(
+  direnv
   docker
   git
+  httpie
   mvn
   npm
   tmux
