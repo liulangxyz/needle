@@ -48,14 +48,6 @@ check_precondition() {
   fi
 }
 
-dl_needle() {
-  info "Cloning Needle"
-  git clone "$NEEDLE_REPO" "$NEEDLE" || {
-    error "clone failed"
-    exit 1
-  }
-}
-
 setup_tmux() {
   brewinstall tmux
   brewinstall reattach-to-user-namespace
@@ -145,7 +137,6 @@ setup_python() {
 install() {
   setup_color
   check_precondition
-  dl_needle
 
   info "update brews"
   brew update
@@ -192,6 +183,5 @@ main() {
 ########################################
 export NEEDLE=~/.needle
 export NEEDLE_THREAD="$NEEDLE/thread"
-export NEEDLE_REPO=https://github.com/kkninjae/needle.git
 
 main "$0"

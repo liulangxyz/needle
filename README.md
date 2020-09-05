@@ -4,18 +4,6 @@ Needle is a tiny tool to manage dotfiles and binary installations for me.
 
 ## Installation
 
-Remotely
-
-```sh
-# install
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/kkninjae/needle/master/setup.sh)"
-# uninstall
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/kkninjae/needle/master/setup.sh)" --uninstall
-```
-
-
-Locally
-
 ```sh
 $ git clone https://github.com/kkninjae/needle.git ~/.needle
 $ cd ~/.needle
