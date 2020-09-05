@@ -41,33 +41,111 @@ check_precondition() {
     info "install homebrew"
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
-}
 
-setup_needle() {
-  if [[ ! -d "$NEEDLE" ]]; then
-    if ! command_exists git; then
-      error "git not found"
-      exit 1
-    fi
-
-    info "Cloning Needle"
-    git clone "$NEEDLE_REPO" "$NEEDLE" || {
-      error "clone failed"
-      exit 1
-    }
+  if ! command_exists git; then
+    error "git not found"
+    exit 1
   fi
 }
 
-sewing() {
-  for sew in $(find "${NEEDLE}/thread" -name "sew.sh" -type f -print | sort); do
-    source "$sew"
-  done
+dl_needle() {
+  info "Cloning Needle"
+  git clone "$NEEDLE_REPO" "$NEEDLE" || {
+    error "clone failed"
+    exit 1
+  }
+}
+
+setup_tmux() {
+  brewinstall tmux
+  brewinstall reattach-to-user-namespace
+
+  # tmux.conf
+  symlink "$NEEDLE_THREAD"/tmux.conf ~/.tmux.conf
+}
+
+setup_zsh() {
+  brewinstall zsh
+
+  # oh my zsh
+  if [[ ! -d ~/.oh-my-zsh ]]; then
+    info "install oh-my-zsh"
+    /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh) --unattended"
+  fi
+
+  # zsh theme
+  if [[ ! -f ~/.oh-my-zsh/custom/themes/simple.zsh-theme ]]; then
+    info "install simple.zsh-theme"
+    cp -v "$NEEDLE_THREAD"/simple.zsh-theme ~/.oh-my-zsh/custom/themes/simple.zsh-theme
+  fi
+
+  # zshrc
+  symlink "$NEEDLE_THREAD"/zshrc ~/.zshrc
+}
+
+setup_git() {
+  brewinstall git
+  # gitignore
+  symlink "$NEEDLE_THREAD"/gitignore ~/.gitignore
+
+  # gitconfig
+  if [[ ! -f ~/.gitconfig ]]; then
+    info "config gitconfig"
+    cp -v "$NEEDLE_THREAD"/gitconfig.template ~/.gitconfig
+
+    # setup user name and email
+    read -r -p "Your name: " name
+    git config --global user.name "$name"
+    read -r -p "Your email: " email
+    git config --global user.email "$email"
+  fi
+}
+
+setup_vim() {
+  brewinstall vim
+
+  # vimrc
+  symlink "$NEEDLE_THREAD"/vimrc ~/.vimrc
+
+  # install plugin manager
+  if [[ ! -f ~/.vim/autoload/plug.vim ]]; then
+    info "install plug.vim, a vim plugin manager"
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  fi
+
+  # override default vi
+  if [[ -f /usr/local/bin/vim ]]; then
+    symlink /usr/local/bin/vim /usr/local/bin/vi
+  fi
+}
+
+setup_javascript() {
+  brewinstall node
+
+  # node version manager
+  if [ ! -s ~/.nvm/nvm.sh ]; then
+    info "install node version manager"
+    git clone https://github.com/nvm-sh/nvm.git ~/.nvm
+    CURR_DIR=$PWD
+    cd ~/.nvm
+    git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+    cd "$CURR_DIR"
+  fi
+}
+
+setup_python() {
+  brewinstall python3
+  brewinstall pipenv
+
+  # pip
+  [[ ! -d ~/.pip ]] && mkdir ~/.pip
+  symlink "$NEEDLE_THREAD"/pip.conf ~/.pip/pip.conf
 }
 
 install() {
   setup_color
   check_precondition
-  setup_needle
+  dl_needle
 
   info "update brews"
   brew update
@@ -83,18 +161,19 @@ install() {
   brewinstall youtube-dl
   brewinstall direnv
 
-  sewing
+  # rest of them
+  setup_git
+  setup_tmux
+  setup_zsh
+  setup_vim
+  setup_javascript
+  setup_python
+
   info "Needle is all set."
 }
 
 uninstall() {
   setup_color
-
-  if [[ ! -d "$NEEDLE" ]]; then
-    error "needle is not installed"
-    exit 1
-  fi
-
   info "delete needle from $NEEDLE"
   rm -rf "$NEEDLE"
   info "deleted, see you next time."
@@ -112,6 +191,7 @@ main() {
 # main
 ########################################
 export NEEDLE=~/.needle
+export NEEDLE_THREAD="$NEEDLE/thread"
 export NEEDLE_REPO=https://github.com/kkninjae/needle.git
 
 main "$0"

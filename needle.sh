@@ -51,6 +51,9 @@ export FZF_DEFAULT_COMMAND='fd --type f'
 # direnv
 eval "$(direnv hook zsh)"
 
+# jdk
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+
 ########################################
 # alias
 ########################################
