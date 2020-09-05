@@ -2,7 +2,8 @@
 
 Needle is a tiny tool to manage dotfiles and binary installations for me.
 
-## Installation
+
+**Installation**
 
 ```sh
 $ git clone https://github.com/kkninjae/needle.git ~/.needle
@@ -11,7 +12,7 @@ $ bash setup.sh
 ```
 
 
-## Customization
+**Customization**
 
 A shell compatible file with suffix `.plugin.sh` in `custom` directory will be loaded into your shell environment.
 A good use case of using customization is to load the shell configurations you don't want to save them in git.
