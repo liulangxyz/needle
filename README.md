@@ -6,7 +6,7 @@ Needle is a tiny tool to manage dotfiles and binary installations for me.
 **Installation**
 
 ```sh
-$ git clone https://github.com/kkninjae/needle.git ~/.needle
+$ git clone git@github.com:kkninjae/needle.git ~/.needle
 $ cd ~/.needle
 $ bash setup.sh
 ```
