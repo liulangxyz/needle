@@ -5,13 +5,9 @@
 ########################################
 # discard all changes including added new files
 git_discard() {
-  for f in $(git status -s | grep -E -v "\?\?" | cut -d ' ' -f 3); do
-    git checkout -- "$f"
-  done
-
-  for f in $(git status -s | grep -E "\?\?" | cut -d ' ' -f 2); do
-    rm -rf -- "$f"
-  done
+  git add .
+  git commit --no-verify -m "dump" 1>/dev/null 2>&1
+  git reset --hard HEAD^ 1>/dev/null 2>&1
 }
 
 # get git branch name by using fzf
@@ -52,7 +48,7 @@ export FZF_DEFAULT_COMMAND='fd --type f'
 eval "$(direnv hook zsh)"
 
 # jdk
-export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+export JAVA_HOME=`/usr/libexec/java_home`
 
 ########################################
 # alias
