@@ -1,14 +1,23 @@
 # Needle
 
-Needle is a tiny tool to manage dotfiles and binary installations for me.
+Needle is a tiny tool to manage my dotfiles.
 
 
-**Installation**
+**How-to**
+
+Install
 
 ```sh
 $ git clone git@github.com:kkninjae/needle.git ~/.needle
 $ cd ~/.needle
 $ bash setup.sh
+```
+
+Uninstall
+
+```sh
+$ cd ~/.needle
+$ bash setup.sh --uninstall
 ```
 
 

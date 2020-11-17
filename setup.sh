@@ -184,4 +184,4 @@ main() {
 export NEEDLE=~/.needle
 export NEEDLE_THREAD="$NEEDLE/thread"
 
-main "$0"
+main "$*"
