@@ -15,7 +15,9 @@ plugins=(
   httpie
   mvn
   npm
+  pipenv
   tmux
+  yarn
 )
 
 # init oh-my-zsh
