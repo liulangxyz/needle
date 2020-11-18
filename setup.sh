@@ -149,7 +149,7 @@ install() {
   brewinstall fzf
   brewinstall fd
   brewinstall httpie
-  brewisntall pipenv
+  brewinstall pipenv
   brewinstall ripgrep
   brewinstall yarn
   brewinstall youtube-dl
