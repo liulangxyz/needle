@@ -145,12 +145,14 @@ install() {
 
   # install essentails
   brewinstall cmake
+  brewinstall direnv
   brewinstall fzf
   brewinstall fd
-  brewinstall ripgrep
   brewinstall httpie
+  brewisntall pipenv
+  brewinstall ripgrep
+  brewinstall yarn
   brewinstall youtube-dl
-  brewinstall direnv
 
   # rest of them
   setup_git
