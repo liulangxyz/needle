@@ -50,6 +50,9 @@ export PIPENV_VENV_IN_PROJECT=1
 # jdk
 export JAVA_HOME=`/usr/libexec/java_home`
 
+# rbenv
+eval "$(rbenv init -)"
+
 ########################################
 # alias
 ########################################
