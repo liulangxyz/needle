@@ -49,16 +49,11 @@ check_precondition() {
 }
 
 setup_tmux() {
-  brewinstall tmux
-  brewinstall reattach-to-user-namespace
-
   # tmux.conf
   symlink "$NEEDLE_THREAD"/tmux.conf ~/.tmux.conf
 }
 
 setup_zsh() {
-  brewinstall zsh
-
   # oh my zsh
   if [[ ! -d ~/.oh-my-zsh ]]; then
     info "install oh-my-zsh"
@@ -76,7 +71,6 @@ setup_zsh() {
 }
 
 setup_git() {
-  brewinstall git
   # gitignore
   symlink "$NEEDLE_THREAD"/gitignore ~/.gitignore
 
@@ -94,8 +88,6 @@ setup_git() {
 }
 
 setup_vim() {
-  brewinstall vim
-
   # vimrc
   symlink "$NEEDLE_THREAD"/vimrc ~/.vimrc
 
@@ -112,8 +104,6 @@ setup_vim() {
 }
 
 setup_javascript() {
-  brewinstall node
-
   # node version manager
   if [ ! -s ~/.nvm/nvm.sh ]; then
     info "install node version manager"
@@ -126,9 +116,6 @@ setup_javascript() {
 }
 
 setup_python() {
-  brewinstall python3
-  brewinstall pipenv
-
   # pip
   [[ ! -d ~/.pip ]] && mkdir ~/.pip
   symlink "$NEEDLE_THREAD"/pip.conf ~/.pip/pip.conf
@@ -148,19 +135,40 @@ install() {
   brewinstall direnv
   brewinstall fzf
   brewinstall fd
-  brewinstall httpie
-  brewinstall pipenv
   brewinstall ripgrep
-  brewinstall yarn
+  brewinstall httpie
   brewinstall youtube-dl
 
-  # rest of them
+  # git
+  brewinstall git
   setup_git
+
+  # tmux
+  brewinstall tmux
+  brewinstall reattach-to-user-namespace
   setup_tmux
+
+  # zsh
+  brewinstall zsh
   setup_zsh
+
+  # vim
+  brewinstall vim
   setup_vim
+
+  # javascript
+  brewinstall node
+  brewinstall yarn
   setup_javascript
+
+  # python
+  brewinstall python3
+  brewinstall pipenv
   setup_python
+
+  # ruby
+  brewinstall ruby
+  brewinstall rbenv
 
   info "Needle is all set."
 }
