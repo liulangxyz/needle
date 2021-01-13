@@ -24,4 +24,4 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # load needle to shell environment
-[ -f ~/.needle/needle.sh ] && source ~/.needle/needle.sh
+[ -f ~/.needle/init.sh ] && source ~/.needle/init.sh
