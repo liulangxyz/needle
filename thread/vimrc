@@ -1,16 +1,8 @@
 " ==========
 " Basic
 " ==========
-" be iMproved
-set nocompatible
-
 " leading key
 let mapleader=','
-
-" ignore deprecated error of importing imp
-if has('python3')
-  silent! python3 1
-endif
 
 " ==========
 " Plugins
@@ -18,7 +10,6 @@ endif
 call plug#begin('~/.vim/plug')
 
 " theme
-Plug 'altercation/vim-colors-solarized'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -29,7 +20,6 @@ Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'godlygeek/tabular'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug '/usr/local/opt/fzf'
@@ -38,19 +28,15 @@ Plug 'jremmen/vim-ripgrep'
 
 " code
 Plug 'sheerun/vim-polyglot'
-Plug 'martinda/Jenkinsfile-vim-syntax'
-Plug 'tpope/vim-markdown'
 Plug 'tomtom/tcomment_vim'
 Plug 'mattn/emmet-vim'
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
 " theme
 set background=dark
-colorscheme PaperColor
 set laststatus=2
+colorscheme PaperColor
 let g:airline#extensions#hunks#enabled = 0
 
 " nerdtree
@@ -89,16 +75,9 @@ noremap <leader>b :TCommentBlock<CR>
 " emment
 let g:user_emmet_expandabbr_key = '<leader>m'
 
-" vim-gitgutter
-set updatetime=100
-nmap <leader>g <Plug>(GitGutterPreviewHunk)
-
 " ==========
 " Features
 " ==========
-" turn on filetype detect
-filetype plugin indent on
-
 " turn off backup and swap files
 set nobackup
 set noswapfile
@@ -131,8 +110,6 @@ set smarttab
 
 " line setting
 set number
-set cursorline
-set colorcolumn=80
 set nowrap
 
 " indent
@@ -161,9 +138,6 @@ set backspace=indent,eol,start
 
 " syntax highlight
 syntax enable
-
-" automatically load changed file
-set autoread
 
 " enable spell checking
 set spelllang=en_us
@@ -236,37 +210,3 @@ cnoremap hs split
 cnoremap vs vsplit
 cnoremap hb sbuffer
 cnoremap vb vertical sbuffer
-
-" ==========
-" Specific
-" ==========
-" MacVim
-if has('gui_running')
-  " color theme
-  set background=dark
-  colorscheme solarized
-
-  " set font and size for GUI
-  set guifont=Monaco:h11
-
-  " remove right and left scroll bar
-  set guioptions-=rL
-
-  " show tab bar only when there are more than one tab
-  set showtabline=1
-
-  " shortcuts for navigating tabs
-  map <D-w> :tabclose<CR>
-  map <D-t> :tabnew<CR>
-  " map <A-D-LEFT> :tabprevious<CR>
-  " map <A-D-RIGHT> :tabNext<CR>
-  map <D-1> 1gt
-  map <D-2> 2gt
-  map <D-3> 3gt
-  map <D-4> 4gt
-  map <D-5> 5gt
-  map <D-6> 6gt
-  map <D-7> 7gt
-  map <D-8> 8gt
-  map <D-9> 9gt
-endif
