@@ -15,7 +15,9 @@ plugins=(
   httpie
   mvn
   npm
+  nvm
   pipenv
+  rbenv
   tmux
   yarn
 )

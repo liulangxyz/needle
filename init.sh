@@ -3,8 +3,9 @@
 ########################################
 # utilities
 ########################################
-# discard all changes including added new files
+# remove gd alias defined in zsh git plugin to avoid conflict error
 unalias gd
+# discard all changes including added new files
 gd() {
   git add .
   git commit --no-verify -m "dump" 1>/dev/null 2>&1
@@ -40,9 +41,6 @@ export LANG=en_US.UTF-8
 # fzf
 export FZF_DEFAULT_COMMAND='fd --type f'
 
-# direnv
-eval "$(direnv hook zsh)"
-
 # pip
 export PIP_CONFIG_FILE=~/.pip.conf
 
@@ -51,12 +49,6 @@ export PIPENV_VENV_IN_PROJECT=1
 
 # jdk
 export JAVA_HOME=`/usr/libexec/java_home`
-
-# rbenv
-eval "$(rbenv init -)"
-
-# nvm
-source ~/.nvm/nvm.sh
 
 ########################################
 # alias
