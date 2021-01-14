@@ -1,0 +1,27 @@
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+export ZSH=~/.oh-my-zsh
+
+# zsh theme
+ZSH_THEME="simple"
+
+# disable auto-setting terminal title
+DISABLE_AUTO_TITLE="true"
+
+# plugins
+plugins=(
+  direnv
+  docker
+  git
+  httpie
+  mvn
+  npm
+  pipenv
+  tmux
+  yarn
+)
+
+# init oh-my-zsh
+source $ZSH/oh-my-zsh.sh
+
+# load needle to shell environment
+[ -f ~/.needle/init.sh ] && source ~/.needle/init.sh
