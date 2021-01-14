@@ -4,4 +4,4 @@
 [alias]
     st = status
 [pull]
-	rebase = false
+    rebase = false
