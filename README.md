@@ -18,7 +18,7 @@ $ rm -rf ~/.needle
 ```
 
 
-Load other configs into shell environment:
+Load other configs into shell environment
 
-A shell compatible file with suffix `.plugin.sh` in `custom` directory will be loaded into shell environment.
-A good use case for this is to load customized configurations into shell environment but don't want to keep them in git.
+Place any shell compatible file with suffix `.plugin.sh` in `custom` directory.
+A good use case is to load customized configs but not store them in the repo.
