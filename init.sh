@@ -4,10 +4,15 @@
 # utilities
 ########################################
 # discard all changes including added new files
-git_discard() {
+gd() {
   git add .
   git commit --no-verify -m "dump" 1>/dev/null 2>&1
   git reset --hard HEAD^ 1>/dev/null 2>&1
+}
+
+# discard -> update -> prune
+gu() {
+  gd && git pull && git remote prune origin
 }
 
 # get git branch name by using fzf
@@ -25,13 +30,6 @@ fgbd() {
   git branch -D $(fgb)
 }
 
-# load node version manager
-loadnvm() {
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
-  [ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"
-}
-
 ########################################
 # settings
 ########################################
@@ -44,7 +42,10 @@ export FZF_DEFAULT_COMMAND='fd --type f'
 # direnv
 eval "$(direnv hook zsh)"
 
-# pipenv creates virtualenv inside project directory
+# pip
+export PIP_CONFIG_FILE=~/.pip.conf
+
+# pipenv, creates virtualenv inside project directory
 export PIPENV_VENV_IN_PROJECT=1
 
 # jdk
@@ -52,6 +53,9 @@ export JAVA_HOME=`/usr/libexec/java_home`
 
 # rbenv
 eval "$(rbenv init -)"
+
+# n, a node version manager
+export N_PREFIX=~/.config
 
 ########################################
 # alias
