@@ -3,3 +3,5 @@
     editor = vi
 [alias]
     st = status
+[pull]
+	rebase = false
