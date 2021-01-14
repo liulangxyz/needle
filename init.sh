@@ -4,6 +4,7 @@
 # utilities
 ########################################
 # discard all changes including added new files
+unalias gd
 gd() {
   git add .
   git commit --no-verify -m "dump" 1>/dev/null 2>&1
