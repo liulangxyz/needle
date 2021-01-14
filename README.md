@@ -8,14 +8,13 @@ A tool to help me setup dotfiles.
 Install
 
 ```sh
-$ git clone git@github.com:kkninjae/needle.git ~/.needle
-$ cd ~/.needle && sh needle.sh
+$ git clone git@github.com:kkninjae/needle.git ~/.needle && cd ~/.needle && sh needle.sh
 ```
 
 Uninstall
 
 ```sh
-$ cd ~/.needle && sh needle.sh --uninstall
+$ rm -rf ~/.needle
 ```
 
 
