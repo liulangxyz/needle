@@ -55,8 +55,8 @@ export JAVA_HOME=`/usr/libexec/java_home`
 # rbenv
 eval "$(rbenv init -)"
 
-# n, a node version manager
-export N_PREFIX=~/.config
+# nvm
+source ~/.nvm/nvm.sh
 
 ########################################
 # alias
