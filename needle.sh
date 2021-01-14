@@ -56,7 +56,6 @@ needle() {
     vim
     node
     yarn
-    n
     python3
     pipenv
     ruby
@@ -74,6 +73,15 @@ needle() {
   if [[ ! -f ~/.vim/autoload/plug.vim ]]; then
     info "install plug.vim, a vim plugin manager"
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  fi
+  
+  if [ ! -s ~/.nvm/nvm.sh ]; then
+    info "install node version manager"
+    git clone https://github.com/nvm-sh/nvm.git ~/.nvm
+    CURR_DIR=$PWD
+    cd ~/.nvm
+    git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+    cd "$CURR_DIR"
   fi
 
   info "symlink rc files"
