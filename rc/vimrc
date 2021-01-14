@@ -1,0 +1,212 @@
+" ==========
+" Basic
+" ==========
+" leading key
+let mapleader=','
+
+" ==========
+" Plugins
+" ==========
+call plug#begin('~/.vim/plug')
+
+" theme
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" editor
+Plug 'scrooloose/nerdtree'
+Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'godlygeek/tabular'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'jremmen/vim-ripgrep'
+
+" code
+Plug 'sheerun/vim-polyglot'
+Plug 'tomtom/tcomment_vim'
+Plug 'mattn/emmet-vim'
+
+call plug#end()
+
+" theme
+set background=dark
+set laststatus=2
+colorscheme PaperColor
+let g:airline#extensions#hunks#enabled = 0
+
+" nerdtree
+nnoremap <leader>n :NERDTreeToggle<CR>
+nnoremap <leader>r :NERDTreeFind<CR>
+
+" easy motion
+let g:EasyMotion_do_mapping = 0
+nmap <leader>w <Plug>(easymotion-overwin-f)
+
+" tabular
+vnoremap <leader>t :Tabularize /
+
+" coc
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" fzf
+noremap <leader>l :FZF<CR>
+
+" ripgrep
+noremap <leader>f :Rg<SPACE>
+
+" t_comment
+noremap <leader>c :TComment<CR>
+noremap <leader>b :TCommentBlock<CR>
+
+" emment
+let g:user_emmet_expandabbr_key = '<leader>m'
+
+" ==========
+" Features
+" ==========
+" turn off backup and swap files
+set nobackup
+set noswapfile
+
+" encoding
+set encoding=utf-8
+set fileencodings=utf-8,euc-jp
+
+" file format
+set fileformats=unix,mac,dos
+
+" new split position
+set splitbelow
+set splitright
+
+" fold method
+set foldenable
+set foldmethod=manual
+
+" show command and ruler
+set showcmd
+set ruler
+
+" tab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
+set smarttab
+
+" line setting
+set number
+set nowrap
+
+" indent
+set autoindent
+set smartindent
+
+" search
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+" show matching brackets
+set showmatch
+
+" access system clipboard
+set clipboard=unnamed
+
+" enable mouse in xterm
+if !has('gui_running')
+  set mouse=a
+endif
+
+" enable backspace
+set backspace=indent,eol,start
+
+" syntax highlight
+syntax enable
+
+" enable spell checking
+set spelllang=en_us
+
+" set unprintable characters and turn it on
+set listchars=tab:▸\ ,eol:¬,trail:·,extends:»,precedes:«
+set list
+
+" ==========
+" Auto command
+" ==========
+" source vimrc
+augroup autoReload
+  autocmd!
+  autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END
+
+" force filetype
+augroup forceFiletype
+  autocmd!
+  autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+  autocmd BufNewFile,BufReadPost *.tex set filetype=plaintex
+augroup END
+
+" adjust indention
+augroup adjustIndention
+  autocmd!
+  autocmd FileType markdown setlocal tabstop=4 softtabstop=4 shiftwidth=4
+augroup END
+
+" ==========
+" Key mapping
+" ==========
+" shortcut for editing $MYVIMRC
+nnoremap <leader>ev :vs $MYVIMRC<CR>
+
+" set working directory
+nnoremap <leader>. :lcd %:p:h<CR>:pwd<CR>
+
+" syntax highlight fix
+nnoremap <leader>s :syntax sync fromstart<CR>
+
+" navigate among windows
+nnoremap ] <C-w>
+nnoremap ]h <C-w>h
+nnoremap ]j <C-w>j
+nnoremap ]k <C-w>k
+nnoremap ]l <C-w>l
+
+" move current window to particular direction
+nnoremap [h <C-w>H
+nnoremap [j <C-w>J
+nnoremap [k <C-w>K
+nnoremap [l <C-w>L
+
+" continuous indentation for long line
+vnoremap < <gv
+vnoremap > >gv
+
+" treat long lines as break lines
+nnoremap j gj
+vnoremap j gj
+nnoremap k gk
+vnoremap k gk
+nnoremap ^ g^
+vnoremap ^ g^
+
+" unify split command
+cnoremap hs split
+cnoremap vs vsplit
+cnoremap hb sbuffer
+cnoremap vb vertical sbuffer
