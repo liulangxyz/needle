@@ -22,6 +22,9 @@ plugins=(
   yarn
 )
 
+# nvm
+NVM_LAZY=1
+
 # init oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
