@@ -17,7 +17,6 @@ plugins=(
   npm
   nvm
   pipenv
-  rbenv
   tmux
   yarn
 )

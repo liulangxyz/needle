@@ -59,7 +59,6 @@ needle() {
     python3
     pipenv
     ruby
-    rbenv
   )
 
   info "install bins"
