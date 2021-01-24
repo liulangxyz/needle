@@ -1,10 +1,8 @@
 #!/bin/bash
 
 ########################################
-# utilities
+# functions
 ########################################
-# remove gd alias defined in zsh git plugin to avoid conflict error
-unalias gd
 # discard all changes including added new files
 gd() {
   git add .
@@ -59,7 +57,6 @@ export PATH="/usr/local/opt/ruby/bin:$PATH"
 # files
 alias vineedle="vi ~/.needle/init.sh && source ~/.zshrc"
 alias vizshrc="vi ~/.zshrc && source ~/.zshrc"
-alias vitmux="vi ~/.tmux.conf && tmux source ~/.tmux.conf"
 
 # directories
 alias mk="cd ~/Documents"

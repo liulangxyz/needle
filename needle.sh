@@ -35,14 +35,14 @@ check_precondition() {
 
 needle() {
   setup_color
-  check_precondition
-
   info "start"
+  check_precondition
+  info "brew update"
   brew update
   brew upgrade
 
-  # bins
-  bins=(
+  # brews
+  brews=(
     cmake
     fzf
     fd
@@ -61,8 +61,8 @@ needle() {
     ruby
   )
 
-  info "install bins"
-  brew install -q "${bins[@]}"
+  info "install brews"
+  brew install -q "${brews[@]}"
 
   if [[ ! -d ~/.oh-my-zsh ]]; then
     info "install oh-my-zsh"
