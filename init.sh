@@ -54,6 +54,10 @@ export PATH="/usr/local/opt/ruby/bin:$PATH"
 ########################################
 # alias
 ########################################
+# git
+alias gcm="git checkout master"
+alias gcd="git checkout develop"
+
 # files
 alias vineedle="vi ~/.needle/init.sh && source ~/.zshrc"
 alias vizshrc="vi ~/.zshrc && source ~/.zshrc"
