@@ -1,102 +1,77 @@
 #!/bin/bash
 
-set -e
-
-command_exists() {
-  command -v "$@" 1>/dev/null 2>&1
+########################################
+# functions
+########################################
+# discard all changes including added new files
+gd() {
+  git add .
+  git commit --no-verify -m "dump" 1>/dev/null 2>&1
+  git reset --hard HEAD^ 1>/dev/null 2>&1
 }
 
-setup_color() {
-  RED=$(printf '\033[31m')
-  GREEN=$(printf '\033[32m')
-  YELLOW=$(printf '\033[33m')
-  RESET=$(printf '\033[m')
+# discard -> update -> prune
+gu() {
+  gd && git pull && git remote prune origin
 }
 
-info() {
-  echo "${GREEN}[NEEDLE]${RESET}" "$@"
+# get git branch name by using fzf
+fgb() {
+  git for-each-ref --format="%(refname:lstrip=2)" "refs/heads" | fzf -m
 }
 
-error() {
-  echo "${RED}Error:${RESET}" "$@"
+# checkout branch by using fzf
+fgc() {
+  git checkout $(fgb)
 }
 
-check_precondition() {
-  if ! command_exists xcode-select || [[ -z $(xcode-select -p) ]]; then
-    info "install xcode command line tools"
-    xcode-select --install
-  fi
-
-  if ! command_exists brew; then
-    info "install homebrew"
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  fi
-}
-
-needle() {
-  setup_color
-  info "start"
-  check_precondition
-  info "brew update"
-  brew update
-  brew upgrade
-
-  # brews
-  brews=(
-    cmake
-    fzf
-    fd
-    ripgrep
-    httpie
-    youtube-dl
-    direnv
-    git
-    tmux
-    zsh
-    vim
-    node
-    yarn
-    python3
-    pipenv
-    ruby
-  )
-
-  info "install brews"
-  brew install -q "${brews[@]}"
-
-  if [[ ! -d ~/.oh-my-zsh ]]; then
-    info "install oh-my-zsh"
-    /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh) --unattended"
-  fi
-
-  if [[ ! -f ~/.vim/autoload/plug.vim ]]; then
-    info "install plug.vim, a vim plugin manager"
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  fi
-
-  if [ ! -s ~/.nvm/nvm.sh ]; then
-    info "install node version manager"
-    git clone -q https://github.com/nvm-sh/nvm.git ~/.nvm
-    CURR_DIR=$PWD
-    cd ~/.nvm
-    git checkout -q `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
-    cd "$CURR_DIR"
-  fi
-
-  info "symlink rc files"
-  for rc in $(ls "${NEEDLE}/rc"); do
-    ln -fsv "${NEEDLE}/rc/${rc}" "${HOME}/.${rc}"
-  done
-
-  info "copy template"
-  cp -fpv "${NEEDLE}/template/simple.zsh-theme" ~/.oh-my-zsh/custom/themes/simple.zsh-theme
-  cp -fpv "${NEEDLE}/template/gitconfig" ~/.gitconfig
-
-  info "done."
+# delete branch(es) by using fzf
+fgbd() {
+  git branch -D $(fgb)
 }
 
 ########################################
-# main
+# settings
 ########################################
-export NEEDLE="${HOME}/.needle"
-needle
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+# fzf
+export FZF_DEFAULT_COMMAND='fd --type f'
+
+# pip
+export PIP_CONFIG_FILE=~/.pip.conf
+
+# pipenv, creates virtualenv inside project directory
+export PIPENV_VENV_IN_PROJECT=1
+
+# jdk
+export JAVA_HOME=`/usr/libexec/java_home`
+
+# ruby
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+
+########################################
+# alias
+########################################
+# git
+alias gcm="git checkout master"
+alias gcd="git checkout develop"
+
+# files
+alias vineedle="vi ~/.needle/init.sh && source ~/.zshrc"
+alias vizshrc="vi ~/.zshrc && source ~/.zshrc"
+
+# directories
+alias mk="cd ~/Documents"
+
+# macos
+alias showfiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
+alias hidefiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+
+########################################
+# load custom plugins
+########################################
+for plugin in $(find ~/.needle/custom -name "*.plugin.sh" -print | sort); do
+  source "$plugin"
+done

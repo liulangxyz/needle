@@ -8,7 +8,7 @@ A tool to help me setup dotfiles.
 Install
 
 ```sh
-$ git clone https://github.com/kkninjae/needle.git ~/.needle && ~/.needle/needle.sh
+$ git clone https://github.com/kkninjae/needle.git ~/.needle && ~/.needle/setup.sh
 ```
 
 Uninstall
@@ -17,8 +17,8 @@ Uninstall
 $ rm -rf ~/.needle
 ```
 
+Load custom shell
 
-Load other configs into shell environment
-
-Place any shell compatible file with suffix `.plugin.sh` in `custom` directory.
-A good use case is to load customized configs but not store them in the repo.
+```sh
+$ ln -fsv /path/to/shell ~/.needle/custom/<name>.plugin.sh
+```
