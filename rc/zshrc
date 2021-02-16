@@ -8,9 +8,7 @@ DISABLE_AUTO_TITLE="true"
 
 plugins=(
   direnv
-  docker
   httpie
-  mvn
   npm
   nvm
   pipenv
