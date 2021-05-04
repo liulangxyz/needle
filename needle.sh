@@ -53,7 +53,6 @@ alias gcm="git checkout master"
 alias gcd="git checkout develop"
 
 # files
-alias vineedle="vi ~/.needle/init.sh && source ~/.zshrc"
 alias vizshrc="vi ~/.zshrc && source ~/.zshrc"
 
 # directories
