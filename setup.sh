@@ -29,7 +29,7 @@ check_precondition() {
 
   if ! command_exists brew; then
     info "install homebrew"
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
 }
 
@@ -37,9 +37,8 @@ main() {
   setup_color
   info "start"
   check_precondition
-  info "brew update"
-  brew update
-  brew upgrade
+  info "brew update && upgrade"
+  brew update && brew upgrade
 
   # brews
   brews=(
@@ -52,13 +51,12 @@ main() {
     direnv
     git
     tmux
-    zsh
     vim
     node
     yarn
     python3
     pipenv
-    ruby
+    reattach-to-user-namespace
   )
 
   info "install brews"
@@ -66,7 +64,7 @@ main() {
 
   if [[ ! -d ~/.oh-my-zsh ]]; then
     info "install oh-my-zsh"
-    /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh) --unattended"
+    /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   fi
 
   if [[ ! -f ~/.vim/autoload/plug.vim ]]; then
@@ -76,10 +74,7 @@ main() {
 
   if [ ! -s ~/.nvm/nvm.sh ]; then
     info "install node version manager"
-    git clone -q https://github.com/nvm-sh/nvm.git ~/.nvm
-    cd ~/.nvm
-    git checkout -q `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
-    popd
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
   fi
 
   info "symlink rc files"
