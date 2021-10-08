@@ -22,14 +22,10 @@ Plug 'tpope/vim-repeat'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'godlygeek/tabular'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'jremmen/vim-ripgrep'
 
 " code
 Plug 'sheerun/vim-polyglot'
 Plug 'tomtom/tcomment_vim'
-Plug 'mattn/emmet-vim'
 
 call plug#end()
 
@@ -62,18 +58,9 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" fzf
-noremap <leader>l :FZF<CR>
-
-" ripgrep
-noremap <leader>f :Rg<SPACE>
-
 " t_comment
 noremap <leader>c :TComment<CR>
 noremap <leader>b :TCommentBlock<CR>
-
-" emment
-let g:user_emmet_expandabbr_key = '<leader>m'
 
 " ==========
 " Features
