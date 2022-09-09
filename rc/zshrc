@@ -7,13 +7,11 @@ ZSH_THEME="simple"
 DISABLE_AUTO_TITLE="true"
 
 plugins=(
+  tmux
   direnv
   httpie
-  npm
   nvm
   pipenv
-  tmux
-  yarn
 )
 
 # init oh-my-zsh

@@ -37,6 +37,16 @@ main() {
   setup_color
   info "start"
   check_precondition
+
+  info "symlink rc files"
+  for rc in $(ls "${NEEDLE}/rc"); do
+    ln -fsv "${NEEDLE}/rc/${rc}" "${HOME}/.${rc}"
+  done
+
+  info "copy template"
+  cp -fpv "${NEEDLE}/template/simple.zsh-theme" ~/.oh-my-zsh/custom/themes/simple.zsh-theme
+  cp -fpv "${NEEDLE}/template/gitconfig" ~/.gitconfig
+
   info "brew update && upgrade"
   brew update && brew upgrade
 
@@ -56,6 +66,7 @@ main() {
     yarn
     python3
     pipenv
+    pnpm
     reattach-to-user-namespace
   )
 
@@ -76,15 +87,6 @@ main() {
     info "install node version manager"
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
   fi
-
-  info "symlink rc files"
-  for rc in $(ls "${NEEDLE}/rc"); do
-    ln -fsv "${NEEDLE}/rc/${rc}" "${HOME}/.${rc}"
-  done
-
-  info "copy template"
-  cp -fpv "${NEEDLE}/template/simple.zsh-theme" ~/.oh-my-zsh/custom/themes/simple.zsh-theme
-  cp -fpv "${NEEDLE}/template/gitconfig" ~/.gitconfig
 
   info "done."
 }
