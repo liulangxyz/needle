@@ -46,18 +46,6 @@ nmap <leader>w <Plug>(easymotion-overwin-f)
 " tabular
 vnoremap <leader>t :Tabularize /
 
-" coc
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
 " t_comment
 noremap <leader>c :TComment<CR>
 noremap <leader>b :TCommentBlock<CR>

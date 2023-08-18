@@ -15,6 +15,7 @@ node_modules
 # python
 *.pyc
 .python-version
+env
 
 # java
 .factorypath

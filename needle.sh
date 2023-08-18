@@ -30,6 +30,24 @@ fgbd() {
   git branch -D $(fgb)
 }
 
+# open github repo
+vgr() {
+  repo=$(git remote -v | head -1 | grep -E ":.*\." -o)
+  repo=${repo#:}
+  repo=${repo%.}
+  open https://github.com/${repo}
+}
+
+# compress img
+zipimg() {
+  for img in $(fzf -m); do
+    echo "rename $img to old-$img"
+    mv -v $img "old-$img"
+    echo "compress $img"
+    ffmpeg -i "old-$img" $img
+  done
+}
+
 ########################################
 # settings
 ########################################
