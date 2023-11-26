@@ -40,11 +40,22 @@ vgr() {
 
 # compress img
 zipimg() {
-  for img in $(fzf -m); do
-    echo "rename $img to old-$img"
-    mv -v $img "old-$img"
-    echo "compress $img"
-    ffmpeg -i "old-$img" $img
+  cur_name="$1"
+  bkp_name="old-${cur_name}"
+  echo "img: ${cur_name}"
+  echo "compressing..."
+  mv "${cur_name}" "${bkp_name}"
+  ffmpeg -nostdin -hide_banner -loglevel error -i "${bkp_name}" "${cur_name}"
+  echo "done"
+  echo
+  echo "old img: ${bkp_name}"
+  echo "compressed img: ${cur_name}"
+  echo
+}
+
+fzipimg() {
+  fzf -m | while read filename; do
+    zipimg "${filename}"
   done
 }
 
