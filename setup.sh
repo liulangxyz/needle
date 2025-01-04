@@ -43,20 +43,16 @@ main() {
   info "install brews"
   brews=(
     cmake
+    python3
+    pipenv
+    node
     fzf
     fd
     ripgrep
     httpie
-    youtube-dl
     direnv
-    git
-    tmux
     vim
-    python3
-    pipenv
-    pnpm
-    node
-    yarn
+    tmux
     reattach-to-user-namespace
   )
   brew install -q "${brews[@]}"
