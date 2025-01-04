@@ -17,7 +17,7 @@ Uninstall
 rm -rf ~/.needle
 ```
 
-Load custom shell
+Load custom shell config
 
 ```sh
 ln -fsv /path/to/shell ~/.needle/custom/<name>.plugin.sh
